@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState, useLayoutEffect, type ReactNode } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
-import { ArrowLeft, Check, ChevronDown, ChevronRight, Lock, Sliders, X } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, Lock, Sliders, X } from "lucide-react";
+import MegsyStar from "@/components/files/MegsyStar";
 import { toast } from "sonner";
 import { promptUpgrade } from "@/lib/upgradeMoment";
 import type { AgentModel } from "@/lib/agentRegistry";
@@ -11,7 +12,6 @@ import {
   CHAT_COMPOSER_MODEL_OPTIONS,
   ComposerModelIcon,
   getChatModelDisplayLabel,
-  getEffortPresetsForModel,
 } from "./chatConstants";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -23,15 +23,6 @@ import {
 } from "@/components/model-picker/glassModelMenuStyles";
 import { readChatModelPreferences } from "@/lib/chatModelPreferences";
 
-const menuContainerVariants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.012, delayChildren: 0.02 } },
-};
-
-const menuItemVariants = {
-  hidden: { opacity: 0, y: 4 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.16, ease: "easeOut" as const } },
-};
 
 interface Props {
   mode: ChatMode;
@@ -60,15 +51,6 @@ interface Props {
   triggerClassName?: string;
 }
 
-const asMediaChoice = (model: any, mode: "images" | "video"): MediaModelChoice => ({
-  slug: model.slug || model.id,
-  name: model.name,
-  provider: model.provider,
-  credits: Number(model.credits) || 0,
-  thumbnail: model.thumbnailUrl || model.iconUrl,
-  type: mode === "video" ? "video" : "image",
-  isPremium: !!model.isPremium,
-});
 
 export default function ComposerModelMenu({
   mode,
@@ -196,7 +178,7 @@ export default function ComposerModelMenu({
         <ChevronDown
           className={`h-4 w-4 shrink-0 text-foreground/70 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
-        {!noIcon && !(variant === "pill" && isMediaMode) && (
+        {!noIcon && (
           <span data-model-icon className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-transparent border-0">
             {activeChatOption ? (
               <ComposerModelIcon brand={activeChatOption.brand} />
@@ -241,13 +223,13 @@ export default function ComposerModelMenu({
                     boxShadow: "0 18px 48px -24px hsl(var(--foreground) / 0.35)",
                     transformOrigin: pos.bottom != null ? "bottom center" : "top center",
                   }}
-                  className="tier-menu-card z-[9999] flex flex-col overflow-y-auto overscroll-contain rounded-[20px] p-2"
+                  className="tier-menu-card z-[9999] flex flex-col overflow-y-auto overscroll-contain rounded-[20px] p-1.5"
                 >
-                  <div className="px-3 pb-1.5 pt-2 text-[11px] font-medium tracking-wide text-foreground/65">
+                  <div className="px-2.5 pb-1 pt-1.5 text-[11px] font-medium tracking-wide text-foreground/65">
                     Choose a model
                   </div>
 
-                  {CHAT_COMPOSER_MODEL_OPTIONS.map((item, idx) => {
+                  {CHAT_COMPOSER_MODEL_OPTIONS.map((item) => {
                     const locked = item.premium && (userPlan === "free" || userPlan === "trial");
                     const active =
                       item.kind === "tier"
@@ -275,33 +257,34 @@ export default function ComposerModelMenu({
                           marginTop: 0,
                           opacity: locked ? 0.5 : 1,
                         }}
-                        className="flex w-full items-center gap-2.5 rounded-[14px] px-3 py-3 text-start transition-colors tier-row"
+                        className="flex w-full items-center gap-2.5 rounded-[14px] px-2 py-2 text-start transition-colors hover:bg-foreground/[0.03]"
                       >
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-center gap-1.5">
-                            <span
-                              className={`truncate text-[14px] leading-tight ${
-                                active ? "font-semibold text-foreground" : "font-medium text-foreground/90"
-                              }`}
-                            >
-                              {item.label}
-                            </span>
-                            {item.premium && (
-                              <span className="shrink-0 rounded-md bg-foreground/[0.07] px-1.5 py-[2px] text-[9px] font-semibold leading-none text-foreground/50">
-                                Pro
-                              </span>
-                            )}
-                          </span>
-                          <span className="mt-[3px] block truncate text-[11px] leading-snug text-foreground/65">
-                            {item.desc}
-                          </span>
-                        </span>
                         <span className="flex h-5 w-5 shrink-0 items-center justify-center">
                           {locked ? (
                             <Lock className="h-3.5 w-3.5 text-foreground/65" />
                           ) : active ? (
                             <Check className="h-[17px] w-[17px] text-primary" strokeWidth={2.8} />
                           ) : null}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-center gap-1.5">
+                            <span
+                              className={`truncate text-[13px] leading-tight ${
+                                active ? "font-semibold text-foreground" : "font-medium text-foreground/90"
+                              }`}
+                            >
+                              {item.label}
+                            </span>
+                            {item.premium && (
+                              <MegsyStar size={11} static className="text-[var(--megsy-blue)]" />
+                            )}
+                          </span>
+                          <span className="mt-[2px] block truncate text-[11px] leading-snug text-foreground/60">
+                            {item.desc}
+                          </span>
+                        </span>
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground/[0.04]">
+                          <ComposerModelIcon brand={item.brand} />
                         </span>
                       </button>
                     );
@@ -345,7 +328,7 @@ export default function ComposerModelMenu({
                     WebkitBackdropFilter: "none",
                     boxShadow: "none",
                   }}
-                  className="z-[9999] rounded-2xl p-2 text-foreground overflow-y-auto overscroll-contain unified-menu-surface scrollbar-thin"
+                  className="z-[9999] rounded-2xl p-1.5 text-foreground overflow-y-auto overscroll-contain unified-menu-surface scrollbar-thin"
                 >
 
                   {settingsPanel && (
@@ -390,126 +373,55 @@ export default function ComposerModelMenu({
                     exit={{ opacity: 0, x: 16 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                  {isMediaMode ? (
-
-                    mediaOptions.length === 0 ? (
-                      <div className={glassModelMenu.empty}>
-                        {loading ? "Loading models…" : "No models available."}
-                      </div>
-                    ) : (
-                      <>
-                        <MediaModelTools mode={mode === "video" ? "video" : "images"} />
-                        <div className="px-2.5 pt-1.5 pb-1.5 flex items-center gap-3 whitespace-nowrap">
-                          <span className={glassModelMenu.sectionLabel}>
-                            {mode === "video" ? "Video models" : "Image models"}
-                          </span>
-                        </div>
-                        <motion.div
-                          variants={menuContainerVariants}
-                          initial="hidden"
-                          animate="show"
-                          className="flex flex-col gap-2"
+                  <div className="flex flex-col">
+                    {CHAT_COMPOSER_MODEL_OPTIONS.map((item) => {
+                      const locked = item.premium && (userPlan === "free" || userPlan === "trial");
+                      const active =
+                        item.kind === "tier"
+                          ? !selectedModel && megsyTier === item.id
+                          : selectedModel?.id === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => {
+                            if (locked) {
+                              promptUpgrade(item.label);
+                              return;
+                            }
+                            if (item.kind === "tier") onTierSelect(item.id as "lite" | "pro" | "max");
+                            else onChatModelSelect({ id: (item as any).id, label: (item as any).label });
+                            toast.success(`Selected: ${item.label}`);
+                            onOpenChange(false);
+                          }}
+                          className={`group relative flex w-full items-center gap-2.5 rounded-ios-md px-2 py-2 text-left transition-colors hover:bg-foreground/[0.03] ${active ? "bg-foreground/[0.035]" : "bg-transparent"}`}
                         >
-                          {groupedMediaOptions.map((group) => (
-                            <div key={group.provider}>
-                              <div className="px-2.5 pb-1 text-[10px] font-black uppercase tracking-wider text-foreground/65">
-                                {group.label}
-                              </div>
-                              <div className="flex flex-col gap-1">
-                                {group.models.map((model) => {
-                                  const choice = asMediaChoice(model, mode);
-                                  const active = mediaModel?.slug === choice.slug;
-                                  const locked = !!model.isPremium && !paid;
-                                  return (
-                                    <motion.button
-                                      key={choice.slug}
-                                      variants={menuItemVariants}
-                                      onClick={() => {
-                                        if (locked) {
-                                          promptUpgrade(choice.name);
-                                          return;
-                                        }
-                                        onMediaModelSelect(choice);
-                                        toast.success(`Selected: ${choice.name}`);
-                                        onOpenChange(false);
-                                      }}
-                                      className={`group relative flex w-full items-center gap-2.5 rounded-ios-md px-3 py-2.5 text-left transition-colors border border-transparent text-foreground/90 hover:text-foreground ${active ? "bg-foreground/[0.035]" : "bg-transparent hover:bg-foreground/[0.02]"}`}
-                                    >
-                                      <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-transparent">
-                                        <BrandIcon name={choice.name} provider={choice.provider} size={28} />
-                                        {!hasBrandIcon(choice.name, choice.provider) &&
-                                          (choice.thumbnail ? (
-                                            <img loading="lazy" decoding="async" src={choice.thumbnail} alt="" className="h-full w-full object-cover" />
-                                          ) : mode === "video" ? (
-                                            <VideoIcon className="h-4 w-4 text-foreground/80" />
-                                          ) : (
-                                            <ImageIcon className="h-4 w-4 text-foreground/80" />
-                                          ))}
-                                      </span>
-                                      <span className="min-w-0 flex-1 truncate text-[13px] font-semibold leading-tight tracking-tight text-foreground">
-                                        {choice.name}
-                                      </span>
-                                      {locked ? (
-                                        <Lock className="h-3.5 w-3.5 shrink-0 text-foreground/55" />
-                                      ) : active ? (
-                                        <span className={`${glassModelMenu.checkDot} h-4 w-4`}>
-                                          <Check className="h-2.5 w-2.5" strokeWidth={3} />
-                                        </span>
-                                      ) : null}
-                                    </motion.button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          ))}
-                        </motion.div>
-                      </>
-                    )
-                  ) : (
-                    <div className="flex flex-col gap-1">
-                      {CHAT_COMPOSER_MODEL_OPTIONS.map((item) => {
-                        const locked = item.premium && (userPlan === "free" || userPlan === "trial");
-                        const active =
-                          item.kind === "tier"
-                            ? !selectedModel && megsyTier === item.id
-                            : selectedModel?.id === item.id;
-                        return (
-                          <button
-                            key={item.id}
-                            onClick={() => {
-                              if (locked) {
-                                promptUpgrade(item.label);
-                                return;
-                              }
-                              if (item.kind === "tier") onTierSelect(item.id as "lite" | "pro" | "max");
-                              else onChatModelSelect({ id: (item as any).id, label: (item as any).label });
-                              toast.success(`Selected: ${item.label}`);
-                              onOpenChange(false);
-                            }}
-                            className={`group relative flex w-full items-center gap-3 rounded-ios-md px-3 py-2.5 text-left transition-colors border border-transparent text-foreground/90 hover:text-foreground ${active ? "bg-foreground/[0.035]" : "bg-transparent hover:bg-foreground/[0.02]"}`}
-                          >
-                            <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-transparent">
-                              <ComposerModelIcon brand={item.brand} />
-                            </span>
-                            <span className="min-w-0 flex-1">
+                          <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+                            {locked ? (
+                              <Lock className="h-3.5 w-3.5 text-foreground/55" />
+                            ) : active ? (
+                              <Check className="h-4 w-4 text-primary" strokeWidth={2.8} />
+                            ) : null}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="flex items-center gap-1.5">
                               <span className="block text-[13px] font-semibold leading-tight truncate tracking-tight text-foreground">
                                 {item.label}
                               </span>
+                              {item.premium && (
+                                <MegsyStar size={11} static className="text-[var(--megsy-blue)]" />
+                              )}
                             </span>
-                            <span className="shrink-0 w-5 flex items-center justify-end">
-                              {locked ? (
-                                <Lock className="h-4 w-4 text-foreground/55" />
-                              ) : active ? (
-                                <span className={`${glassModelMenu.checkDot} h-5 w-5`}>
-                                  <Check className="h-3 w-3" strokeWidth={3} />
-                                </span>
-                              ) : null}
+                            <span className="mt-[2px] block truncate text-[11px] leading-snug text-foreground/60">
+                              {item.desc}
                             </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-          )}
+                          </span>
+                          <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground/[0.04]">
+                            <ComposerModelIcon brand={item.brand} />
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                   </motion.div>
                   )}
                   </AnimatePresence>
@@ -520,27 +432,6 @@ export default function ComposerModelMenu({
   </AnimatePresence>,
   document.body,
 )}
-    </div>
-  );
-}
-
-function MediaModelTools({ mode }: { mode: "images" | "video" }) {
-  return (
-    <div className="mb-3 rounded-2xl bg-foreground/[0.02] p-1">
-      <Suspense fallback={null}>
-        {mode === "video" ? (
-          <VideoToolsBar />
-        ) : (
-          <ImageToolsBar
-            onAttach={(file) =>
-              window.dispatchEvent(new CustomEvent("megsy:image-tool-attach", { detail: file }))
-            }
-            onUseCharacter={(character) =>
-              window.dispatchEvent(new CustomEvent("megsy:image-tool-character", { detail: character }))
-            }
-          />
-        )}
-      </Suspense>
     </div>
   );
 }
