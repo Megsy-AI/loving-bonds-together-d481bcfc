@@ -309,7 +309,7 @@ const AnimatedInput = ({
           ) : null}
           {/* Active service strip — fused into the top of the composer card */}
           {headerSlot && (
-            <div className="pointer-events-auto -mx-1 mb-0.5">
+            <div className="pointer-events-auto -mx-1 mt-1 mb-0.5">
               {headerSlot}
             </div>
           )}
@@ -448,7 +448,7 @@ const AnimatedInput = ({
                 data-form-type="other"
                 name="chat-message"
                 className="relative w-full bg-transparent border-none outline-none resize-none text-[15.5px] md:text-sm text-foreground !text-foreground py-1.5 px-1 leading-relaxed md:py-2 font-medium transition-[min-height] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                style={{ minHeight: headerSlot ? "84px" : "38px" }}
+                style={{ minHeight: headerSlot ? "56px" : "38px" }}
               />
             </div>
             <AnimatePresence>{listening ? <ComposerVoiceWave /> : null}</AnimatePresence>

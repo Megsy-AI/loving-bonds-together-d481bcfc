@@ -60,18 +60,21 @@ export default function ComposerServicePanel({
 
   if (!showMediaPicker && !showTemplatePicker && !label) return null;
 
+  const pickerButtonClass =
+    "flex h-full min-w-0 flex-1 items-center gap-2 rounded-full text-left text-[13.5px] font-medium text-foreground transition-colors active:scale-[0.99]";
+
   return (
-    <div className="flex h-10 items-start gap-2 px-0 pt-0 pb-0">
+    <div className="flex h-9 items-center gap-1 rounded-full bg-foreground/[0.05] pl-3 pr-1">
       {showMediaPicker ? (
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           aria-label={isVideo ? "Choose video model" : "Choose image model"}
           aria-haspopup="dialog"
-          className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-foreground/10 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
+          className={pickerButtonClass}
         >
           {hasBrandIcon(mediaModel?.name, mediaModel?.provider) ? (
-            <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={16} variant="color" />
+            <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={15} variant="color" />
           ) : mediaModel?.thumbnail ? (
             <img
               src={mediaModel.thumbnail}
@@ -81,10 +84,10 @@ export default function ComposerServicePanel({
               className="h-4 w-4 rounded-sm object-cover"
             />
           ) : null}
-          <span className="min-w-0 flex-1 truncate text-left">
+          <span className="min-w-0 flex-1 truncate">
             {mediaModel?.name || (isVideo ? "Video model" : "Image model")}
           </span>
-          <ChevronDown className="w-4 h-4 shrink-0 text-foreground/45" strokeWidth={2.4} />
+          <ChevronDown className="w-3.5 h-3.5 shrink-0 text-foreground/40" strokeWidth={2.4} />
         </button>
       ) : null}
 
@@ -94,7 +97,7 @@ export default function ComposerServicePanel({
           onClick={() => onOpenTemplatePicker()}
           aria-label="Choose slides template"
           aria-haspopup="dialog"
-          className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-foreground/10 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
+          className={pickerButtonClass}
         >
           {template?.cover ? (
             <img
@@ -105,24 +108,22 @@ export default function ComposerServicePanel({
               className="h-4 w-5 rounded-sm object-cover"
             />
           ) : null}
-          <span className="min-w-0 flex-1 truncate text-left">{template?.name || "Template"}</span>
-          <ChevronDown className="w-4 h-4 shrink-0 text-foreground/45" strokeWidth={2.4} />
+          <span className="min-w-0 flex-1 truncate">{template?.name || "Template"}</span>
+          <ChevronDown className="w-3.5 h-3.5 shrink-0 text-foreground/40" strokeWidth={2.4} />
         </button>
       ) : null}
 
       {!showMediaPicker && !showTemplatePicker && label ? (
-        <span className="min-w-0 flex-1 truncate px-2 pt-2 text-sm font-medium text-black">{label}</span>
+        <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium text-black">{label}</span>
       ) : null}
-
-      {showMediaPicker || showTemplatePicker ? <span className="flex-1" /> : null}
 
       <button
         type="button"
         onClick={onClear}
         aria-label={label ? `Close ${label}` : "Close mode"}
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-foreground/10 text-foreground/50 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
+        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-foreground/45 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
       >
-        <X className="w-5 h-5" strokeWidth={2.2} />
+        <X className="w-4 h-4" strokeWidth={2.2} />
       </button>
 
       {pickerOpen && showMediaPicker ? (
