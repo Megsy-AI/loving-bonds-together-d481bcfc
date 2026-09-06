@@ -973,6 +973,11 @@ export default defineConfig({
       "@sentry/react",
       "rehype-katex",
       "dayjs",
+      // CJS-only dep pulled in by mermaid (which is excluded from the
+      // pre-bundle). Without pre-bundling it, Vite serves the raw CommonJS
+      // file and the browser throws
+      // "does not provide an export named 'sanitizeUrl'".
+      "@braintree/sanitize-url",
       ...[
         "bash","c","cpp","csharp","css","dart","diff","docker","go","graphql","ini","java",
         "javascript","json","jsx","kotlin","markdown","markup","php","python","ruby","rust",
