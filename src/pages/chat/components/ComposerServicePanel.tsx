@@ -94,7 +94,7 @@ export default function ComposerServicePanel({
           onClick={() => onOpenTemplatePicker()}
           aria-label="Choose slides template"
           aria-haspopup="dialog"
-          className="inline-flex h-7 min-w-0 items-center gap-1.5 rounded-full bg-foreground/[0.06] px-2.5 text-[12px] font-medium text-foreground/80 transition-colors hover:bg-foreground/[0.1] active:scale-[0.97]"
+          className="flex h-8 min-w-0 flex-1 items-center gap-1.5 px-1.5 text-[13px] font-medium text-foreground transition-colors active:scale-[0.99]"
         >
           {template?.cover ? (
             <img
@@ -105,16 +105,16 @@ export default function ComposerServicePanel({
               className="h-3.5 w-5 rounded-sm object-cover"
             />
           ) : null}
-          <span className="max-w-[130px] truncate">{template?.name || "Template"}</span>
+          <span className="min-w-0 flex-1 truncate text-left">{template?.name || "Template"}</span>
           <ChevronDown className="w-3 h-3 shrink-0 text-foreground/45" strokeWidth={2.4} />
         </button>
       ) : null}
 
       {!showMediaPicker && !showTemplatePicker && label ? (
-        <span className="text-[12px] font-medium text-foreground/55">{label}</span>
+        <span className="min-w-0 flex-1 truncate px-1.5 text-[13px] font-medium text-foreground">{label}</span>
       ) : null}
 
-      <span className="flex-1" />
+      {showMediaPicker || showTemplatePicker ? <span className="flex-1" /> : null}
 
       <button
         type="button"
