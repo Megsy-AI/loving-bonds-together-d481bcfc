@@ -401,9 +401,6 @@ export default function ComposerModelMenu({
                               {item.desc}
                             </span>
                           </span>
-                          <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden">
-                            <ComposerModelIcon brand={item.brand} />
-                          </span>
                         </button>
                       );
                     })}
