@@ -138,7 +138,7 @@ export default function MediaModelPickerSheet({
                 mode === "video" ? isUnlimitedMediaModel(m) : isFreeModel(m.slug || m.id);
               const locked = !modelIsFree && !paid;
               const showPro = !!m.isPremium || locked;
-              const description = shortDescription(m.description || describeModel(m, mode === "video" ? "video" : "image"));
+              const description = shortDescription((m.description || describeModel(m, mode === "video" ? "video" : "image")).replace(/\s*Free\s*/gi, " "));
 
               return (
                 <button
