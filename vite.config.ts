@@ -938,6 +938,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force ESM build of dayjs so Vite never tries to import the UMD
+      // `dayjs.min.js` build, which throws "does not provide an export named 'default'".
+      "dayjs": path.resolve(__dirname, "./node_modules/dayjs/esm/index.js"),
     },
   },
   optimizeDeps: {
