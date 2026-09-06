@@ -73,17 +73,6 @@ export default function ComposerServicePanel({
           aria-haspopup="dialog"
           className={pickerButtonClass}
         >
-          {hasBrandIcon(mediaModel?.name, mediaModel?.provider) ? (
-            <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={15} variant="color" />
-          ) : mediaModel?.thumbnail ? (
-            <img
-              src={mediaModel.thumbnail}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="h-4 w-4 rounded-sm object-cover"
-            />
-          ) : null}
           <span className="min-w-0 flex-1 truncate">
             {mediaModel?.name || (isVideo ? "Video model" : "Image model")}
           </span>
