@@ -309,7 +309,7 @@ const AnimatedInput = ({
           ) : null}
           {/* Active service strip — fused into the top of the composer card */}
           {headerSlot && (
-            <div className="pointer-events-auto -mx-1 mb-0.5">
+            <div className="pointer-events-auto -mx-1 mt-1 mb-0.5">
               {headerSlot}
             </div>
           )}
