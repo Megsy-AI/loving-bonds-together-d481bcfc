@@ -198,17 +198,7 @@ export default function ComposerModelMenu({
         />
         {!noIcon && !(variant === "pill" && isMediaMode) && (
           <span data-model-icon className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-transparent border-0">
-            {isMediaMode ? (
-              hasBrandIcon(mediaModel?.name, mediaModel?.provider) ? (
-                <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={24} />
-              ) : mediaModel?.thumbnail ? (
-                <img loading="lazy" decoding="async" src={mediaModel.thumbnail} alt="" className="h-full w-full object-cover" />
-              ) : mode === "video" ? (
-                <VideoIcon className="h-3.5 w-3.5 text-foreground/85" />
-              ) : (
-                <ImageIcon className="h-3.5 w-3.5 text-foreground/85" />
-              )
-            ) : activeChatOption ? (
+            {activeChatOption ? (
               <ComposerModelIcon brand={activeChatOption.brand} />
             ) : (
               <BrandLogo
