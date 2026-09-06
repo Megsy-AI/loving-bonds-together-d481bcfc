@@ -97,7 +97,7 @@ export default function MediaModelPickerSheet({
   const filtered = useMemo(() => {
     const target = mode === "video" ? ["video", "video-i2v"] : ["image"];
     const scoped = models.filter((m) => target.includes(m.type as string));
-    return (mode === "video" ? filterVideoModels(scoped) : filterImageModels(scoped)).sort(
+    const sorted = (mode === "video" ? filterVideoModels(scoped) : filterImageModels(scoped)).sort(
       (a, b) => {
         const fa = a.isFeatured ? 1 : 0;
         const fb = b.isFeatured ? 1 : 0;
@@ -105,6 +105,8 @@ export default function MediaModelPickerSheet({
         return (a.credits || 0) - (b.credits || 0);
       },
     );
+    // Keep only the top 5 video models for a clean list.
+    return mode === "video" ? sorted.slice(0, 5) : sorted;
   }, [models, mode]);
 
   const title = isAr ? "اختر نموذجًا" : "Choose a model";
