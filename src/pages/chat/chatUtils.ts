@@ -32,6 +32,7 @@ export const stripLeakedToolText = (value: string) =>
       "",
     )
     .replace(/<tool_call[\s\S]*?(?:<\/tool_call>|$)/gi, "")
+    .replace(/<tool_use[\s\S]*?(?:<\/tool_use>|$)/gi, "")
     .replace(/<function_call[\s\S]*?(?:<\/function_call>|$)/gi, "")
     .replace(/\$\{tool_code\}\s*/gi, "")
     .replace(/(?:^|\n)[^\n]*(?:print\s*\(\s*)?default_api\.[^\n]*(?:\n|$)/gi, "\n");
@@ -85,6 +86,7 @@ export const makeLeakedToolStreamSanitizer = () => {
     "print(default_api.",
     "default_api.",
     "<tool_call",
+    "<tool_use",
     "<function_call",
     "```tool_code",
     "```tool_call",
