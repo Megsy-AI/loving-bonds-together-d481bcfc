@@ -1202,7 +1202,8 @@ const AppSidebar = ({
             <button
               type="button"
               onClick={() => navigateSmoothly("/pricing")}
-              className="flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-foreground px-3 text-[12.5px] font-semibold text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
+              style={{ color: "#ffffff" }}
+              className="flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-foreground px-3 text-[12.5px] font-semibold transition-opacity hover:opacity-90 active:scale-[0.97]"
               aria-label={language === "ar-eg" ? "ترقية الخطة" : "Upgrade plan"}
             >
               <MegsyStar size={14} static className="" style={{ color: "var(--megsy-blue)" }} />
