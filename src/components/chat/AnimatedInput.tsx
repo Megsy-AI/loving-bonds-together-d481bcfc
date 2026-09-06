@@ -307,7 +307,15 @@ const AnimatedInput = ({
           ) : null}
           {/* Active service strip — fused into the top of the composer card */}
           {headerSlot && (
-            <div className="-mx-2 -mt-1 mb-1.5 pointer-events-auto">{headerSlot}</div>
+            <div
+              className={`pointer-events-auto ${
+                compact
+                  ? "-mx-2 -mt-1.5 mb-1"
+                  : "-mx-3.5 -mt-3 mb-1 md:-mx-4"
+              }`}
+            >
+              {headerSlot}
+            </div>
           )}
           {/* Chips row (model picker, slides template, research depth) — sit ABOVE the input */}
           {inlineSlot && (
