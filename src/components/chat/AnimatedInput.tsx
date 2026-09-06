@@ -274,7 +274,7 @@ const AnimatedInput = ({
   const skillDraft = value.startsWith(SKILL_MARKER);
 
   /** Compact pill: the idle composer remains a stable native-feeling control. */
-  const compact = !focused && !hasText && !isEditing;
+  const compact = !focused && !hasText && !isEditing && !headerSlot;
 
   return (
 
