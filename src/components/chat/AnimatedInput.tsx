@@ -274,7 +274,7 @@ const AnimatedInput = ({
   const skillDraft = value.startsWith(SKILL_MARKER);
 
   /** Compact pill: the idle composer remains a stable native-feeling control. */
-  const compact = !focused && !hasText && !isEditing;
+  const compact = !focused && !hasText && !isEditing && !headerSlot;
 
   return (
 
@@ -299,7 +299,9 @@ const AnimatedInput = ({
           className={`chat-composer-frame chat-mobile-input-glow composer-card pointer-events-auto relative z-10 transition-[border-radius,margin,padding] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             compact
               ? "mx-0 rounded-[32px] px-2 py-1.5"
-              : "mx-0 rounded-[26px] px-3.5 pt-3 pb-2.5 md:px-4 md:pt-3 md:pb-2.5"
+              : headerSlot
+                ? "mx-0 rounded-[26px] px-3.5 pt-0 pb-2 md:px-4 md:pt-0 md:pb-2.5"
+                : "mx-0 rounded-[26px] px-3.5 pt-3 pb-2.5 md:px-4 md:pt-3 md:pb-2.5"
           } ${chatContext ? "chat-composer-liquid" : ""}`}
         >
           {computerSlot ? (
@@ -307,13 +309,7 @@ const AnimatedInput = ({
           ) : null}
           {/* Active service strip — fused into the top of the composer card */}
           {headerSlot && (
-            <div
-              className={`pointer-events-auto ${
-                compact
-                  ? "-mx-2 -mt-1.5 mb-1"
-                  : "-mx-3.5 -mt-3 mb-1 md:-mx-4"
-              }`}
-            >
+            <div className="pointer-events-auto -mx-1 mb-0.5">
               {headerSlot}
             </div>
           )}
@@ -452,7 +448,7 @@ const AnimatedInput = ({
                 data-form-type="other"
                 name="chat-message"
                 className="relative w-full bg-transparent border-none outline-none resize-none text-[15.5px] md:text-sm text-foreground !text-foreground py-1.5 px-1 leading-relaxed md:py-2 font-medium transition-[min-height] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                style={{ minHeight: headerSlot ? "104px" : "38px" }}
+                style={{ minHeight: headerSlot ? "84px" : "38px" }}
               />
             </div>
             <AnimatePresence>{listening ? <ComposerVoiceWave /> : null}</AnimatePresence>

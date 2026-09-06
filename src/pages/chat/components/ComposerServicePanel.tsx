@@ -61,14 +61,14 @@ export default function ComposerServicePanel({
   if (!showMediaPicker && !showTemplatePicker && !label) return null;
 
   return (
-    <div className="flex items-center gap-2 px-1.5 pt-2 pb-1">
+    <div className="flex h-10 items-start gap-2 px-0 pt-0 pb-0">
       {showMediaPicker ? (
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           aria-label={isVideo ? "Choose video model" : "Choose image model"}
           aria-haspopup="dialog"
-          className="flex h-10 min-w-0 flex-1 items-center gap-2 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
+          className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-foreground/10 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
         >
           {hasBrandIcon(mediaModel?.name, mediaModel?.provider) ? (
             <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={16} variant="color" />
@@ -94,7 +94,7 @@ export default function ComposerServicePanel({
           onClick={() => onOpenTemplatePicker()}
           aria-label="Choose slides template"
           aria-haspopup="dialog"
-          className="flex h-10 min-w-0 flex-1 items-center gap-2 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
+          className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-lg border border-foreground/10 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
         >
           {template?.cover ? (
             <img
@@ -111,7 +111,7 @@ export default function ComposerServicePanel({
       ) : null}
 
       {!showMediaPicker && !showTemplatePicker && label ? (
-        <span className="min-w-0 flex-1 truncate px-2 text-sm font-medium text-black">{label}</span>
+        <span className="min-w-0 flex-1 truncate px-2 pt-2 text-sm font-medium text-black">{label}</span>
       ) : null}
 
       {showMediaPicker || showTemplatePicker ? <span className="flex-1" /> : null}
@@ -120,7 +120,7 @@ export default function ComposerServicePanel({
         type="button"
         onClick={onClear}
         aria-label={label ? `Close ${label}` : "Close mode"}
-        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-foreground/40 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-foreground/10 text-foreground/50 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
       >
         <X className="w-5 h-5" strokeWidth={2.2} />
       </button>
