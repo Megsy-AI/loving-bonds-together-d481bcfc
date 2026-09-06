@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
-import { BrandIcon, hasBrandIcon } from "@/components/chat/media/BrandIcon";
 import { findSlidesTemplate } from "@/lib/slidesTemplates";
 import type { MediaModelChoice } from "@/components/chat/media/MediaModelPickerSheet";
 
@@ -88,15 +87,6 @@ export default function ComposerServicePanel({
           aria-haspopup="dialog"
           className={pickerButtonClass}
         >
-          {template?.cover ? (
-            <img
-              src={template.cover}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              className="h-4 w-5 rounded-sm object-cover"
-            />
-          ) : null}
           <span className="min-w-0 flex-1 truncate">{template?.name || "Template"}</span>
           <ChevronDown className="w-3.5 h-3.5 shrink-0 text-foreground/40" strokeWidth={2.4} />
         </button>
