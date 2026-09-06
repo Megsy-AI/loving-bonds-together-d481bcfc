@@ -97,7 +97,7 @@ export default function MediaModelPickerSheet({
   const filtered = useMemo(() => {
     const target = mode === "video" ? ["video", "video-i2v"] : ["image"];
     const scoped = models.filter((m) => target.includes(m.type as string));
-    return (mode === "video" ? filterVideoModels(scoped) : filterImageModels(scoped)).sort(
+    const sorted = (mode === "video" ? filterVideoModels(scoped) : filterImageModels(scoped)).sort(
       (a, b) => {
         const fa = a.isFeatured ? 1 : 0;
         const fb = b.isFeatured ? 1 : 0;
@@ -105,6 +105,8 @@ export default function MediaModelPickerSheet({
         return (a.credits || 0) - (b.credits || 0);
       },
     );
+    // Keep only the top 5 video models for a clean list.
+    return mode === "video" ? sorted.slice(0, 5) : sorted;
   }, [models, mode]);
 
   const title = isAr ? "اختر نموذجًا" : "Choose a model";
@@ -136,7 +138,7 @@ export default function MediaModelPickerSheet({
                 mode === "video" ? isUnlimitedMediaModel(m) : isFreeModel(m.slug || m.id);
               const locked = !modelIsFree && !paid;
               const showPro = !!m.isPremium || locked;
-              const description = shortDescription(m.description || describeModel(m, mode === "video" ? "video" : "image"));
+              const description = shortDescription((m.description || describeModel(m, mode === "video" ? "video" : "image")).replace(/\s*Free\s*/gi, " "));
 
               return (
                 <button
@@ -160,9 +162,7 @@ export default function MediaModelPickerSheet({
                     });
                     toast.success(`Selected: ${m.name}`);
                   }}
-                  className={`flex w-full items-center gap-2.5 rounded-2xl px-2.5 py-2 text-left transition-colors active:scale-[0.99] ${
-                    active ? "bg-foreground/[0.04]" : "hover:bg-foreground/[0.03]"
-                  }`}
+                  className="group flex w-full items-center gap-2.5 px-2 py-1.5 text-left transition-colors hover:bg-foreground/[0.02]"
                 >
                   {/* Selection checkmark */}
                   <div className="flex h-5 w-5 shrink-0 items-center justify-center">
@@ -174,9 +174,9 @@ export default function MediaModelPickerSheet({
                   {/* Name + description */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-[14.5px] font-semibold text-foreground">
-                        {m.name}
-                      </span>
+                    <span className="truncate text-[14.5px] font-semibold text-foreground">
+                      {m.name.replace(/\s*Free\s*/gi, " ").trim()}
+                    </span>
                       {showPro && (
                         <MegsyStar
                           className="h-3 w-3 shrink-0 text-[var(--megsy-blue)]"

@@ -13,7 +13,7 @@ import {
   ComposerModelIcon,
   getChatModelDisplayLabel,
 } from "./chatConstants";
-import { BrandLogo } from "@/components/brand/BrandLogo";
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { DraggablePlusSheet } from "./components/DraggablePlusSheet";
 import {
@@ -178,18 +178,9 @@ export default function ComposerModelMenu({
         <ChevronDown
           className={`h-4 w-4 shrink-0 text-foreground/70 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
-        {!noIcon && (
+        {!noIcon && activeChatOption && (
           <span data-model-icon className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-transparent border-0">
-            {activeChatOption ? (
-              <ComposerModelIcon brand={activeChatOption.brand} />
-            ) : (
-              <BrandLogo
-                alt=""
-                className="h-[68%] w-[68%]"
-                loading="lazy"
-                decoding="async"
-              />
-            )}
+            <ComposerModelIcon brand={activeChatOption.brand} />
           </span>
         )}
         <span data-model-label className="truncate tracking-tight text-foreground">{triggerLabel}</span>
@@ -249,15 +240,13 @@ export default function ComposerModelMenu({
                           onOpenChange(false);
                         }}
                         style={{
-                          background: active
-                            ? "rgba(255,255,255,0.035)"
-                            : "transparent",
+                          background: "transparent",
                           border: 0,
                           boxShadow: "none",
                           marginTop: 0,
                           opacity: locked ? 0.5 : 1,
                         }}
-                        className="flex w-full items-center gap-2.5 rounded-[14px] px-2 py-2 text-start transition-colors hover:bg-foreground/[0.03]"
+                        className="flex w-full items-center gap-2.5 px-2 py-1.5 text-start transition-colors hover:bg-foreground/[0.02]"
                       >
                         <span className="flex h-5 w-5 shrink-0 items-center justify-center">
                           {locked ? (
@@ -282,9 +271,6 @@ export default function ComposerModelMenu({
                           <span className="mt-[2px] block truncate text-[11px] leading-snug text-foreground/60">
                             {item.desc}
                           </span>
-                        </span>
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground/[0.04]">
-                          <ComposerModelIcon brand={item.brand} />
                         </span>
                       </button>
                     );
@@ -393,7 +379,7 @@ export default function ComposerModelMenu({
                             toast.success(`Selected: ${item.label}`);
                             onOpenChange(false);
                           }}
-                          className={`group relative flex w-full items-center gap-2.5 rounded-ios-md px-2 py-2 text-left transition-colors hover:bg-foreground/[0.03] ${active ? "bg-foreground/[0.035]" : "bg-transparent"}`}
+                          className="group flex w-full items-center gap-2.5 px-2 py-1.5 text-left transition-colors hover:bg-foreground/[0.02]"
                         >
                           <span className="flex h-5 w-5 shrink-0 items-center justify-center">
                             {locked ? (
@@ -414,9 +400,6 @@ export default function ComposerModelMenu({
                             <span className="mt-[2px] block truncate text-[11px] leading-snug text-foreground/60">
                               {item.desc}
                             </span>
-                          </span>
-                          <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-foreground/[0.04]">
-                            <ComposerModelIcon brand={item.brand} />
                           </span>
                         </button>
                       );
