@@ -213,8 +213,8 @@ export default function ComposerModelMenu({
         <span data-model-label className="truncate tracking-tight text-foreground">{triggerLabel}</span>
       </button>
 
-      {/* MOBILE (chat) — anchored dropdown card */}
-      {renderMobileSheet && isMobile && !isMediaMode && typeof document !== "undefined" &&
+      {/* MOBILE — anchored dropdown card */}
+      {renderMobileSheet && isMobile && typeof document !== "undefined" &&
         createPortal(
           <AnimatePresence>
             {open && pos && (
