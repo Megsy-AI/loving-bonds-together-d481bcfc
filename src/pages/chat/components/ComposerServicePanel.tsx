@@ -61,14 +61,14 @@ export default function ComposerServicePanel({
   if (!showMediaPicker && !showTemplatePicker && !label) return null;
 
   return (
-    <div className="flex items-center gap-1 px-1 pt-2 pb-0.5">
+    <div className="flex items-center gap-1 px-1 pt-1.5 pb-0.5">
       {showMediaPicker ? (
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           aria-label={isVideo ? "Choose video model" : "Choose image model"}
           aria-haspopup="dialog"
-          className="inline-flex h-7 min-w-0 items-center gap-1.5 rounded-full bg-foreground/[0.06] px-2.5 text-[12px] font-medium text-foreground/80 transition-colors hover:bg-foreground/[0.1] active:scale-[0.97]"
+          className="flex h-8 min-w-0 flex-1 items-center gap-1.5 px-1.5 text-[13px] font-medium text-foreground transition-colors active:scale-[0.99]"
         >
           {hasBrandIcon(mediaModel?.name, mediaModel?.provider) ? (
             <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={13} variant="color" />
@@ -81,7 +81,7 @@ export default function ComposerServicePanel({
               className="h-3.5 w-3.5 rounded-sm object-cover"
             />
           ) : null}
-          <span className="max-w-[130px] truncate">
+          <span className="min-w-0 flex-1 truncate text-left">
             {mediaModel?.name || (isVideo ? "Video model" : "Image model")}
           </span>
           <ChevronDown className="w-3 h-3 shrink-0 text-foreground/45" strokeWidth={2.4} />
