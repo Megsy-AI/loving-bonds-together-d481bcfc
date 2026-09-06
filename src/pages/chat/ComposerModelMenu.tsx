@@ -111,10 +111,7 @@ export default function ComposerModelMenu({
     window.addEventListener("megsy:chat-model-preferences", handler);
     return () => window.removeEventListener("megsy:chat-model-preferences", handler);
   }, [open]);
-  const isMediaMode = mode === "images" || mode === "video";
-  const paid = isPaidUser(userPlan);
   const isMobile = useIsMobile();
-  const { models: dynamicModels, loading } = useDynamicModels();
   const btnRef = useRef<HTMLButtonElement>(null);
   const [pos, setPos] = useState<
     { left: number; width: number; top?: number; bottom?: number; maxHeight: number } | null
@@ -147,7 +144,6 @@ export default function ComposerModelMenu({
         const maxHeight = Math.min(cap, Math.max(220, vh - top - 24));
         setPos({ left, width, top, maxHeight });
       }
-
     };
     update();
     window.addEventListener("resize", update);
@@ -158,61 +154,15 @@ export default function ComposerModelMenu({
     };
   }, [open, align, side]);
 
-  const mediaOptions = useMemo(() => {
-    if (!isMediaMode) return [];
-    const target = mode === "video" ? ["video", "video-i2v"] : ["image"];
-    return sortMediaModels(
-      dynamicModels.filter((model) => target.includes(model.type as string) && !isHiddenMediaModel(model)),
-      mode === "video" ? "video" : "images",
-    );
-  }, [dynamicModels, isMediaMode, mode]);
-
-  // Unified lists for the mobile sheet — always available regardless of current mode.
-  const imageOptions = useMemo(
-    () =>
-      sortMediaModels(
-        dynamicModels.filter((m) => (m.type as string) === "image" && !isHiddenMediaModel(m)),
-        "images",
-      ),
-    [dynamicModels],
-  );
-  const videoOptions = useMemo(
-    () =>
-      sortMediaModels(
-        dynamicModels.filter((m) => ["video", "video-i2v"].includes(m.type as string) && !isHiddenMediaModel(m)),
-        "video",
-      ),
-    [dynamicModels],
-  );
-
   const orderedChatOptions = useMemo(
     () => [...CHAT_COMPOSER_MODEL_OPTIONS].sort((a, b) => Number(a.premium) - Number(b.premium)),
     [],
   );
-  const orderedImageOptions = useMemo(
-    () => imageOptions,
-    [imageOptions],
-  );
-  const orderedVideoOptions = useMemo(
-    () => videoOptions,
-    [videoOptions],
-  );
-
-  const visibleImageOptions = view === "more" ? orderedImageOptions : orderedImageOptions.slice(0, 4);
-  const visibleVideoOptions = view === "more" ? orderedVideoOptions : orderedVideoOptions.slice(0, 4);
-  const groupedMediaOptions = useMemo(() => groupModelsByProvider(mediaOptions), [mediaOptions]);
 
   const resetMobileHeader = () => {
     setMobileHeaderHidden(false);
     mobileLastScrollTopRef.current = 0;
   };
-
-  useEffect(() => {
-    if (!isMediaMode || loading || mediaOptions.length === 0) return;
-    if (mediaModel?.type === (mode === "video" ? "video" : "image")) return;
-    const defaultModel = paid ? mediaOptions[0] : mediaOptions.find((m) => !(m as any).isPremium) || mediaOptions[0];
-    onMediaModelSelect(asMediaChoice(defaultModel, mode));
-  }, [isMediaMode, loading, mediaModel?.type, mediaOptions, mode, onMediaModelSelect, paid]);
 
   useEffect(() => {
     resetMobileHeader();
@@ -221,10 +171,7 @@ export default function ComposerModelMenu({
   const activeChatOption = CHAT_COMPOSER_MODEL_OPTIONS.find((item) =>
     item.kind === "tier" ? !selectedModel && megsyTier === item.id : selectedModel?.id === item.id,
   );
-  const triggerLabel = isMediaMode
-    ? mediaModel?.name ||
-      (loading ? "Loading models" : mode === "video" ? "Video model" : "Image model")
-    : activeChatOption?.label || getChatModelDisplayLabel(selectedModel, megsyTier);
+  const triggerLabel = activeChatOption?.label || getChatModelDisplayLabel(selectedModel, megsyTier);
 
   return (
     <div className="relative">
