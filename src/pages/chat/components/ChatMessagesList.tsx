@@ -72,7 +72,7 @@ export const ChatMessagesList = forwardRef<HTMLDivElement, ChatMessagesListProps
     return (
       <div
         data-no-translate="true"
-        className="max-w-3xl mx-auto pt-20 pb-56 md:pb-64 px-4 md:px-6 space-y-2"
+        className="max-w-3xl mx-auto pt-20 pb-32 md:pb-40 px-4 md:px-6 space-y-2"
       >
         {chatMode === "learning" && (
           <Suspense fallback={null}>
