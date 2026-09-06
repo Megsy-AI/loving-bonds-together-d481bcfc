@@ -978,6 +978,8 @@ export default defineConfig({
       // file and the browser throws
       // "does not provide an export named 'sanitizeUrl'".
       "@braintree/sanitize-url",
+      "fastdom",
+      "mermaid",
       ...[
         "bash","c","cpp","csharp","css","dart","diff","docker","go","graphql","ini","java",
         "javascript","json","jsx","kotlin","markdown","markup","php","python","ruby","rust",
@@ -1000,7 +1002,9 @@ export default defineConfig({
     exclude: [
       "msw",
       "@mswjs/interceptors",
-      "mermaid",
+      // NOTE: mermaid must NOT be excluded. It pulls in CommonJS/UMD deps
+      // (@braintree/sanitize-url, fastdom, dayjs, ...) that break at runtime
+      // with "does not provide an export named ..." when Vite serves them raw.
       "pdfjs-dist",
       "xlsx",
       "jspdf",
