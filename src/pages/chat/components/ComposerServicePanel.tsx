@@ -61,30 +61,30 @@ export default function ComposerServicePanel({
   if (!showMediaPicker && !showTemplatePicker && !label) return null;
 
   return (
-    <div className="flex items-center gap-1 px-1 pt-1.5 pb-0.5">
+    <div className="flex items-center gap-2 px-1.5 pt-2 pb-1">
       {showMediaPicker ? (
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           aria-label={isVideo ? "Choose video model" : "Choose image model"}
           aria-haspopup="dialog"
-          className="flex h-8 min-w-0 flex-1 items-center gap-1.5 px-1.5 text-[13px] font-medium text-foreground transition-colors active:scale-[0.99]"
+          className="flex h-10 min-w-0 flex-1 items-center gap-2 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
         >
           {hasBrandIcon(mediaModel?.name, mediaModel?.provider) ? (
-            <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={13} variant="color" />
+            <BrandIcon name={mediaModel?.name} provider={mediaModel?.provider} size={16} variant="color" />
           ) : mediaModel?.thumbnail ? (
             <img
               src={mediaModel.thumbnail}
               alt=""
               loading="lazy"
               decoding="async"
-              className="h-3.5 w-3.5 rounded-sm object-cover"
+              className="h-4 w-4 rounded-sm object-cover"
             />
           ) : null}
           <span className="min-w-0 flex-1 truncate text-left">
             {mediaModel?.name || (isVideo ? "Video model" : "Image model")}
           </span>
-          <ChevronDown className="w-3 h-3 shrink-0 text-foreground/45" strokeWidth={2.4} />
+          <ChevronDown className="w-4 h-4 shrink-0 text-foreground/45" strokeWidth={2.4} />
         </button>
       ) : null}
 
@@ -94,7 +94,7 @@ export default function ComposerServicePanel({
           onClick={() => onOpenTemplatePicker()}
           aria-label="Choose slides template"
           aria-haspopup="dialog"
-          className="flex h-8 min-w-0 flex-1 items-center gap-1.5 px-1.5 text-[13px] font-medium text-foreground transition-colors active:scale-[0.99]"
+          className="flex h-10 min-w-0 flex-1 items-center gap-2 px-2 text-sm font-medium text-foreground transition-colors active:scale-[0.99]"
         >
           {template?.cover ? (
             <img
@@ -102,16 +102,16 @@ export default function ComposerServicePanel({
               alt=""
               loading="lazy"
               decoding="async"
-              className="h-3.5 w-5 rounded-sm object-cover"
+              className="h-4 w-5 rounded-sm object-cover"
             />
           ) : null}
           <span className="min-w-0 flex-1 truncate text-left">{template?.name || "Template"}</span>
-          <ChevronDown className="w-3 h-3 shrink-0 text-foreground/45" strokeWidth={2.4} />
+          <ChevronDown className="w-4 h-4 shrink-0 text-foreground/45" strokeWidth={2.4} />
         </button>
       ) : null}
 
       {!showMediaPicker && !showTemplatePicker && label ? (
-        <span className="min-w-0 flex-1 truncate px-1.5 text-[13px] font-medium text-foreground">{label}</span>
+        <span className="min-w-0 flex-1 truncate px-2 text-sm font-medium text-black">{label}</span>
       ) : null}
 
       {showMediaPicker || showTemplatePicker ? <span className="flex-1" /> : null}
@@ -120,9 +120,9 @@ export default function ComposerServicePanel({
         type="button"
         onClick={onClear}
         aria-label={label ? `Close ${label}` : "Close mode"}
-        className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-foreground/40 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
+        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-foreground/40 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
       >
-        <X className="w-3.5 h-3.5" strokeWidth={2.2} />
+        <X className="w-5 h-5" strokeWidth={2.2} />
       </button>
 
       {pickerOpen && showMediaPicker ? (
