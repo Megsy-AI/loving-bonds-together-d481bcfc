@@ -967,6 +967,7 @@ export default defineConfig({
       "framer-motion",
       "@sentry/react",
       "rehype-katex",
+      "dayjs",
       ...[
         "bash","c","cpp","csharp","css","dart","diff","docker","go","graphql","ini","java",
         "javascript","json","jsx","kotlin","markdown","markup","php","python","ruby","rust",
