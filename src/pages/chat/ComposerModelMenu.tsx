@@ -13,7 +13,7 @@ import {
   ComposerModelIcon,
   getChatModelDisplayLabel,
 } from "./chatConstants";
-import { BrandLogo } from "@/components/brand/BrandLogo";
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { DraggablePlusSheet } from "./components/DraggablePlusSheet";
 import {
@@ -178,18 +178,9 @@ export default function ComposerModelMenu({
         <ChevronDown
           className={`h-4 w-4 shrink-0 text-foreground/70 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
-        {!noIcon && (
+        {!noIcon && activeChatOption && (
           <span data-model-icon className="flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-transparent border-0">
-            {activeChatOption ? (
-              <ComposerModelIcon brand={activeChatOption.brand} />
-            ) : (
-              <BrandLogo
-                alt=""
-                className="h-[68%] w-[68%]"
-                loading="lazy"
-                decoding="async"
-              />
-            )}
+            <ComposerModelIcon brand={activeChatOption.brand} />
           </span>
         )}
         <span data-model-label className="truncate tracking-tight text-foreground">{triggerLabel}</span>
@@ -280,9 +271,6 @@ export default function ComposerModelMenu({
                           <span className="mt-[2px] block truncate text-[11px] leading-snug text-foreground/60">
                             {item.desc}
                           </span>
-                        </span>
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden">
-                          <ComposerModelIcon brand={item.brand} />
                         </span>
                       </button>
                     );
