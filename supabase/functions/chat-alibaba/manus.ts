@@ -242,6 +242,63 @@ export type ManusResult = {
   steps: number;
 };
 
+/** `<tool_use>{...}</tool_use>` blocks some models emit as plain text. */
+const TOOL_USE_RE = /<tool_use>\s*([\s\S]*?)\s*<\/tool_use>/gi;
+
+/** Aliases for tool names models invent instead of the real catalog names. */
+const TOOL_NAME_ALIASES: Record<string, string> = {
+  computer: "computer_task",
+  browser: "computer_task",
+  browse: "open_url",
+  navigate: "open_url",
+  search: "web_search",
+  web: "web_search",
+};
+
+/** Removes literal tool-call markup so it never reaches the user's answer. */
+function stripToolUse(text: string): string {
+  return text.replace(TOOL_USE_RE, "").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+/**
+ * Recovers real tool calls from `<tool_use>` text blocks, mapping invented
+ * names (e.g. `computer`) onto the catalog tools and folding loose arguments
+ * (`url`, `action`, `task`) into the schema each tool expects.
+ */
+function textToolCalls(content: string): any[] {
+  if (!content || !content.includes("<tool_use")) return [];
+  const calls: any[] = [];
+  for (const match of content.matchAll(TOOL_USE_RE)) {
+    let parsed: any = null;
+    try {
+      parsed = JSON.parse(match[1].trim());
+    } catch {
+      continue;
+    }
+    const rawName = String(parsed?.name ?? "").trim();
+    if (!rawName) continue;
+    const name = TOOL_NAME_ALIASES[rawName] ?? rawName;
+    const args = (parsed?.arguments ?? parsed?.parameters ?? {}) as Record<string, unknown>;
+    let normalized: Record<string, unknown> = { ...args };
+    if (name === "computer_task" && !normalized.goal) {
+      const action = String(args.action ?? "").trim();
+      const url = String(args.url ?? "").trim();
+      normalized = {
+        goal: String(args.task ?? args.instruction ?? [action, url].filter(Boolean).join(" ") ?? "").trim(),
+      };
+      if (!normalized.goal) continue;
+    }
+    if (name === "open_url" && !normalized.url && args.link) normalized.url = args.link;
+    if (name === "web_search" && !normalized.query && args.q) normalized.query = args.q;
+    calls.push({
+      id: `text-${name}-${calls.length}-${Date.now()}`,
+      type: "function",
+      function: { name, arguments: JSON.stringify(normalized) },
+    });
+  }
+  return calls;
+}
+
 function toolLabel(name: string, args: any): string {
   switch (name) {
     case "web_search":
