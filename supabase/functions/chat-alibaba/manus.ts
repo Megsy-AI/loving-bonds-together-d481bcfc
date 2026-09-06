@@ -559,11 +559,18 @@ export async function runPrimaryAgent(opts: {
       const message = data?.choices?.[0]?.message;
       if (!message) break;
 
-      const calls = Array.isArray(message.tool_calls) ? message.tool_calls : [];
+      const rawContent = typeof message.content === "string" ? message.content : "";
+      // Some models emit the call as literal `<tool_use>{...}</tool_use>` text
+      // instead of a real tool_call. Recover those so the agent still runs
+      // instead of printing raw markup into the answer.
+      const calls = Array.isArray(message.tool_calls) && message.tool_calls.length
+        ? message.tool_calls
+        : textToolCalls(rawContent);
       if (!calls.length) {
-        notes = typeof message.content === "string" ? message.content.trim() : "";
+        notes = stripToolUse(rawContent);
         break;
       }
+      message.content = stripToolUse(rawContent);
 
       messages.push({
         role: "assistant",
