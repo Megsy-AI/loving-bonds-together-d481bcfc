@@ -38,7 +38,8 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
 
   useEffect(() => {
     setPayRegion(region);
-    void setUserLang(region === "arab" ? "ar-eg" : "en", { syncRemote: false });
+    // The welcome showcase is always shown in English, regardless of region.
+    void setUserLang("en", { syncRemote: false });
   }, [region]);
 
   useEffect(() => {
