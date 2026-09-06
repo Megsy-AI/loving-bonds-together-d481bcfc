@@ -102,7 +102,7 @@ export default function ComposerServicePanel({
               alt=""
               loading="lazy"
               decoding="async"
-              className="h-4 w-5.5 rounded-sm object-cover"
+              className="h-4 w-5 rounded-sm object-cover"
             />
           ) : null}
           <span className="min-w-0 flex-1 truncate text-left">{template?.name || "Template"}</span>
