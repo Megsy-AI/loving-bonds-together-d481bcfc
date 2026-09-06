@@ -1,9 +1,9 @@
 import {
-  ImagePlus,
-  Code2,
-  Video as VideoIcon,
-  Presentation,
-  ScanSearch,
+  Image,
+  Globe,
+  Play,
+  LayoutTemplate,
+  Search,
 } from "lucide-react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { useUserLang } from "@/lib/authI18n";
@@ -14,13 +14,13 @@ export interface StarterCardsProps {
   className?: string;
 }
 
-/** Every real service the app offers — no filler. Short labels, no descriptions. */
+/** Real services, reordered and shown with clean, recognisable icons. */
 const CARDS = [
-  { id: "image", mode: "images", Icon: ImagePlus, title: "Images", titleAr: "صور" },
-  { id: "web", mode: "code", Icon: Code2, title: "Website", titleAr: "موقع" },
-  { id: "video", mode: "video", Icon: VideoIcon, title: "Video", titleAr: "فيديو" },
-  { id: "slides", mode: "slides", Icon: Presentation, title: "Slides", titleAr: "عرض" },
-  { id: "research", mode: "deep-research", Icon: ScanSearch, title: "Research", titleAr: "بحث" },
+  { id: "image", mode: "images", Icon: Image, title: "Images", titleAr: "صور" },
+  { id: "video", mode: "video", Icon: Play, title: "Video", titleAr: "فيديو" },
+  { id: "web", mode: "code", Icon: Globe, title: "Website", titleAr: "موقع" },
+  { id: "slides", mode: "slides", Icon: LayoutTemplate, title: "Slides", titleAr: "عرض" },
+  { id: "research", mode: "deep-research", Icon: Search, title: "Research", titleAr: "بحث" },
 ];
 
 const handleCardClick = (

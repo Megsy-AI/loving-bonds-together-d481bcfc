@@ -6,36 +6,40 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { useDynamicModels } from "@/hooks/useModels";
-import { Check, Image as ImageIcon, Video as VideoIcon, Lock } from "lucide-react";
-import { glassModelMenu, glassModelMenuStyle } from "@/components/model-picker/glassModelMenuStyles";
+import { Check } from "lucide-react";
 import { BrandIcon, hasBrandIcon } from "@/components/chat/media/BrandIcon";
 import { useUserPlan } from "@/hooks/useUserPlan";
 import { isFreeModel, isPaidUser } from "@/lib/subscriptionGating";
 import { filterImageModels, filterVideoModels } from "@/lib/mediaModelPolicy";
 import { isUnlimitedMediaModel, mediaModelBadge } from "@/lib/mediaQuota";
+import MegsyStar from "@/components/branding/MegsyStar";
+import { useUserLang } from "@/lib/authI18n";
 
-/**
- * Neutral monogram used when a model has no brand icon or thumbnail.
- * (Previously these fell back to the Megsy logo, which made third-party
- * video models look like our own products.)
- */
-function ModelMonogram({ name, size = 64 }: { name: string; size?: number }) {
-  const letter = (name || "?").trim().charAt(0).toUpperCase();
+function ModelIcon({ model }: { model: any }) {
+  const src = model.thumbnailUrl || model.iconUrl;
+  if (src) {
+    return (
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted/60 p-1.5">
+        <img src={src} alt="" className="h-full w-full object-contain" />
+      </div>
+    );
+  }
+  if (hasBrandIcon(model.name, model.provider)) {
+    return (
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted/60 p-1.5">
+        <BrandIcon name={model.name} provider={model.provider} variant="color" size={28} />
+      </div>
+    );
+  }
+  const letter = (model.name || "?").trim().charAt(0).toUpperCase();
   return (
-    <span
-      aria-hidden
-      className="inline-flex items-center justify-center rounded-xl bg-foreground/8 text-foreground/70 font-black"
-      style={{ width: size, height: size, fontSize: Math.round(size * 0.42) }}
-    >
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted/60 text-[15px] font-bold text-foreground/70">
       {letter}
-    </span>
+    </div>
   );
 }
 
-/**
- * Plain-language speed / quality / cost summary for a media model.
- * Raw credit numbers and codenames mean little — describe the tradeoff.
- */
+/** Speed / quality / cost summary — used only when no human description exists. */
 function describeModel(
   model: { credits?: number; isPremium?: boolean },
   kind: "image" | "video",
@@ -45,8 +49,6 @@ function describeModel(
   const quality = model.isPremium || cost > 4 ? "Best quality" : "Good quality";
   return `${speed} · ${quality} · ${mediaModelBadge(model, kind)}`;
 }
-
-
 
 export interface MediaModelChoice {
   slug: string;
@@ -76,20 +78,24 @@ export default function MediaModelPickerSheet({
   const { models, loading } = useDynamicModels();
   const { plan } = useUserPlan();
   const paid = isPaidUser(plan);
+  const lang = useUserLang();
+  const isAr = lang.startsWith("ar");
   const navigate = useNavigate();
-
 
   const filtered = useMemo(() => {
     const target = mode === "video" ? ["video", "video-i2v"] : ["image"];
     const scoped = models.filter((m) => target.includes(m.type as string));
-    return (mode === "video" ? filterVideoModels(scoped) : filterImageModels(scoped))
-      .sort((a, b) => {
+    return (mode === "video" ? filterVideoModels(scoped) : filterImageModels(scoped)).sort(
+      (a, b) => {
         const fa = a.isFeatured ? 1 : 0;
         const fb = b.isFeatured ? 1 : 0;
         if (fa !== fb) return fb - fa;
         return (a.credits || 0) - (b.credits || 0);
-      });
+      },
+    );
   }, [models, mode]);
+
+  const title = isAr ? "اختر نموذجًا" : "Choose a model";
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -99,11 +105,11 @@ export default function MediaModelPickerSheet({
       >
         <SheetHeader className="px-5 pb-1 pt-4">
           <SheetTitle className="text-center text-[15px] font-semibold text-foreground">
-            {mode === "video" ? "Video model" : "Image model"}
+            {title}
           </SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-[calc(68dvh-64px)]">
-          <div className="px-3 pb-8 pt-1">
+          <div className="px-3 pb-8 pt-1" dir="ltr">
             {loading && (
               <div className="py-10 text-center text-sm text-muted-foreground">Loading…</div>
             )}
@@ -117,6 +123,9 @@ export default function MediaModelPickerSheet({
               const modelIsFree =
                 mode === "video" ? isUnlimitedMediaModel(m) : isFreeModel(m.slug || m.id);
               const locked = !modelIsFree && !paid;
+              const showPro = !!m.isPremium || locked;
+              const description = m.description || describeModel(m, mode === "video" ? "video" : "image");
+
               return (
                 <button
                   key={m.id}
@@ -139,20 +148,40 @@ export default function MediaModelPickerSheet({
                     });
                     toast.success(`Selected: ${m.name}`);
                   }}
-                  className="flex w-full flex-col items-center gap-0.5 rounded-2xl px-4 py-3.5 text-center transition-colors active:bg-foreground/[0.05]"
+                  className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition-colors active:scale-[0.99] ${
+                    active ? "bg-foreground/[0.04]" : "hover:bg-foreground/[0.03]"
+                  }`}
                 >
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="text-[17px] font-medium text-foreground">{m.name}</span>
-                    {locked && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-foreground/8 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-muted-foreground">
-                        <Lock className="h-2.5 w-2.5" /> Pro
+                  {/* Selection checkmark */}
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+                    {active ? (
+                      <Check className="h-5 w-5 text-foreground" strokeWidth={2.4} />
+                    ) : null}
+                  </div>
+
+                  {/* Name + description */}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="truncate text-[15px] font-semibold text-foreground">
+                        {m.name}
                       </span>
-                    )}
-                    {active && <Check className="h-4 w-4 text-foreground" strokeWidth={2.4} />}
-                  </span>
-                  <span className="text-[13px] text-muted-foreground">
-                    {describeModel(m, mode === "video" ? "video" : "image")}
-                  </span>
+                      {showPro && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                          <MegsyStar
+                            className="h-2.5 w-2.5 text-[var(--megsy-blue)]"
+                            aria-hidden
+                          />
+                          Pro
+                        </span>
+                      )}
+                    </div>
+                    <p className="line-clamp-1 text-[12.5px] leading-tight text-muted-foreground">
+                      {description}
+                    </p>
+                  </div>
+
+                  {/* Model icon */}
+                  <ModelIcon model={m} />
                 </button>
               );
             })}

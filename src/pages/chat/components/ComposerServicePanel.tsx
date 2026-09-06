@@ -60,10 +60,10 @@ export default function ComposerServicePanel({
   if (!showMediaPicker && !showTemplatePicker && !label) return null;
 
   const pickerButtonClass =
-    "flex h-full min-w-0 flex-1 items-center gap-2 rounded-full text-left text-[13.5px] font-medium text-foreground transition-colors active:scale-[0.99]";
+    "flex h-full min-w-0 flex-1 items-center gap-2 rounded-full text-left text-[13px] font-medium text-foreground transition-colors active:scale-[0.99]";
 
   return (
-    <div className="flex h-9 items-center gap-1 rounded-full bg-foreground/[0.05] pl-3 pr-1">
+    <div className="flex h-8 items-center gap-1 rounded-full bg-foreground/[0.05] pl-3 pr-1">
       {showMediaPicker ? (
         <button
           type="button"
@@ -93,16 +93,16 @@ export default function ComposerServicePanel({
       ) : null}
 
       {!showMediaPicker && !showTemplatePicker && label ? (
-        <span className="min-w-0 flex-1 truncate text-[13.5px] font-medium text-black">{label}</span>
+        <span className="min-w-0 flex-1 truncate text-[13px] font-medium text-foreground">{label}</span>
       ) : null}
 
       <button
         type="button"
         onClick={onClear}
         aria-label={label ? `Close ${label}` : "Close mode"}
-        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-foreground/45 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
+        className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-foreground/45 transition-colors hover:bg-foreground/[0.08] hover:text-foreground"
       >
-        <X className="w-4 h-4" strokeWidth={2.2} />
+        <X className="w-3.5 h-3.5" strokeWidth={2.2} />
       </button>
 
       {pickerOpen && showMediaPicker ? (
