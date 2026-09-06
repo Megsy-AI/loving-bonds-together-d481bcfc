@@ -972,7 +972,7 @@ const AppSidebar = ({
                   style={{
                     background:
                       "linear-gradient(180deg, rgba(120, 231, 178, 0.90), rgba(74, 222, 128, 0.86))",
-                    color: "#052e16",
+                    color: "#ffffff",
                     border: "1px solid rgba(120, 231, 178, 0.55)",
                     boxShadow:
                       "inset 0 1px 0 var(--overlay-white-45), 0 0 20px -4px rgba(120,231,178,0.45)",
