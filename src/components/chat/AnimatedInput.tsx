@@ -389,7 +389,7 @@ const AnimatedInput = ({
               {!value && (
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 flex items-start px-1 pt-2 text-[15.5px] md:text-sm text-foreground/90 leading-relaxed overflow-hidden"
+                  className="pointer-events-none absolute inset-0 hidden md:flex items-start px-1 pt-2 text-[15.5px] md:text-sm text-foreground/90 leading-relaxed overflow-hidden"
                 >
                   <AnimatePresence mode="wait">
                     <motion.span

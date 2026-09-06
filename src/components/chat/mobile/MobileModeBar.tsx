@@ -89,17 +89,11 @@ export default function MobileModeBar({ mode, onChange }: Props) {
             data-active={true}
             style={{
               scrollSnapAlign: "start",
-              backgroundColor: tint(activeMode.color, 0.9),
-              color: "hsl(var(--brand-ink))",
-              border: `1px solid ${tint(activeMode.color, 0.5)}`,
-              backdropFilter: "blur(16px) saturate(170%)",
-              WebkitBackdropFilter: "blur(16px) saturate(170%)",
-              boxShadow: `0 8px 22px ${tint(activeMode.color, 0.35)}`,
-              fontWeight: 700,
+              fontWeight: 600,
             }}
-            className="shrink-0 inline-flex items-center gap-2 h-10 ps-3 pe-1.5 rounded-full"
+            className="shrink-0 inline-flex items-center gap-2 h-10 ps-3 pe-1.5 rounded-xl bg-foreground text-background border border-foreground"
           >
-            <activeMode.Icon size={14} strokeWidth={2.4} />
+            <activeMode.Icon size={14} strokeWidth={2.2} />
             <span className="leading-none whitespace-nowrap text-[13px]">{tx(activeMode.label)}</span>
             <button
               type="button"
@@ -119,7 +113,7 @@ export default function MobileModeBar({ mode, onChange }: Props) {
             </button>
           </motion.div>
         ) : (
-          MODES.map(({ id, label, Icon, color }, i) => (
+          MODES.map(({ id, label, Icon }, i) => (
             <motion.button
               key={id}
               type="button"
@@ -136,11 +130,11 @@ export default function MobileModeBar({ mode, onChange }: Props) {
               transition={{ ...TAP_SPRING, delay: i * 0.02 }}
               style={{
                 scrollSnapAlign: "start",
-                fontWeight: 600,
+                fontWeight: 500,
               }}
-              className="shrink-0 inline-flex items-center gap-1.5 h-10 px-3.5 rounded-full border border-border/60 bg-card text-[13px] text-foreground/85 shadow-[0_2px_8px_hsl(var(--foreground)/0.07)] transition-all"
+              className="shrink-0 inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl border border-border bg-card text-[13px] text-foreground transition-colors hover:bg-muted"
             >
-              <Icon size={14} strokeWidth={2.4} style={{ color }} />
+              <Icon size={14} strokeWidth={2.2} className="text-foreground/70" />
               <span className="leading-none whitespace-nowrap">{tx(label)}</span>
             </motion.button>
           ))
