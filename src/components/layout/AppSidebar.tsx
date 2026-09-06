@@ -1158,39 +1158,41 @@ const AppSidebar = ({
       <div
         data-mobile-sidebar-fixed-footer="true"
         dir="ltr"
-        className="z-20 grid h-[72px] shrink-0 grid-cols-[auto_1fr] items-center gap-3 bg-transparent px-5"
+        className="z-20 flex h-[72px] shrink-0 items-center gap-1 bg-transparent px-4"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
         {activeUserId ? (
-          <button
-            type="button"
-            onClick={() => navigateSmoothly("/pricing")}
-            className="flex h-11 shrink-0 items-center gap-2 rounded-full border border-foreground/10 bg-background px-4 text-[14.5px] font-semibold text-foreground shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all hover:bg-muted/50 active:scale-95"
-            aria-label={language === "ar-eg" ? "ترقية الخطة" : "Upgrade plan"}
-          >
-            <MegsyStar size={15} static className="text-foreground" />
-            <span>{language === "ar-eg" ? "ترقية" : "Upgrade"}</span>
-          </button>
-        ) : (
-          <span />
-        )}
+          <>
+            <button
+              type="button"
+              onClick={() => navigateSmoothly("/pricing")}
+              className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl text-[14.5px] font-semibold text-foreground transition-colors hover:bg-foreground/[0.05] active:scale-[0.98]"
+              aria-label={language === "ar-eg" ? "ترقية الخطة" : "Upgrade plan"}
+            >
+              <MegsyStar size={15} static className="text-foreground" />
+              <span>{language === "ar-eg" ? "ترقية" : "Upgrade"}</span>
+            </button>
+            <span aria-hidden className="h-6 w-px shrink-0 bg-foreground/10" />
+          </>
+        ) : null}
 
         <button
           type="button"
           onClick={() => navigateSmoothly(activeUserId ? "/settings" : "/auth")}
           dir="ltr"
-          className="justify-self-end flex min-w-0 items-center gap-3 rounded-full text-foreground"
+          className="flex h-11 flex-1 min-w-0 items-center justify-center gap-2 rounded-xl text-[14.5px] font-semibold text-foreground transition-colors hover:bg-foreground/[0.05] active:scale-[0.98]"
+          aria-label={activeUserId ? (language === "ar-eg" ? "الإعدادات" : "Settings") : (language === "ar-eg" ? "تسجيل الدخول" : "Sign in")}
         >
-          <span className="max-w-[148px] truncate text-[16px] font-medium">
-            {activeUserId ? displayName || (language === "ar-eg" ? "المستخدم" : "User") : language === "ar-eg" ? "تسجيل الدخول" : "Sign in"}
-          </span>
-          {displayAvatar ? (
-            <img loading="lazy" decoding="async" src={displayAvatar} alt="" className="h-10 w-10 rounded-full object-cover" />
+          {activeUserId ? (
+            <Settings2 className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
           ) : (
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-[15px] font-medium text-primary-foreground">
-              {activeUserId ? initial : <LogIn className="h-5 w-5" />}
-            </span>
+            <LogIn className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
           )}
+          <span className="truncate">
+            {activeUserId
+              ? language === "ar-eg" ? "الإعدادات" : "Settings"
+              : language === "ar-eg" ? "تسجيل الدخول" : "Sign in"}
+          </span>
         </button>
       </div>
 
