@@ -1,7 +1,7 @@
 import EmptyState from "@/components/common/EmptyState";
 import { memo, startTransition, useEffect, useMemo, useState, useCallback } from "react";
 import { useNavigate, useLocation, type NavigateOptions } from "react-router-dom";
-import { Plus, PanelLeft, LogIn, Cloud, Sparkles, ChevronDown, Mail as MailIcon, X, Settings2 } from "lucide-react";
+import { Plus, PanelLeft, LogIn, Cloud, Sparkles, ChevronDown, Mail as MailIcon, X, Cog } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { getUserSafe } from "@/lib/authSafe";
 import { getOwnProfile } from "@/lib/ownProfile";
@@ -1158,42 +1158,71 @@ const AppSidebar = ({
       <div
         data-mobile-sidebar-fixed-footer="true"
         dir="ltr"
-        className="z-20 flex h-[72px] shrink-0 items-center gap-1 bg-transparent px-4"
-        style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+        className="z-20 flex h-[54px] shrink-0 items-center gap-1.5 rounded-2xl bg-background/70 px-2 mx-2.5 backdrop-blur-xl"
+        style={{ marginBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.5rem)" }}
       >
         {activeUserId ? (
           <>
+            {/* User: avatar + name — the whole area opens Settings */}
+            <button
+              type="button"
+              onClick={() => navigateSmoothly("/settings")}
+              aria-label={language === "ar-eg" ? "الإعدادات" : "Settings"}
+              className="flex min-w-0 flex-1 items-center gap-2.5 rounded-xl px-1.5 py-1.5 text-start transition-colors hover:bg-foreground/[0.05] active:scale-[0.98]"
+            >
+              {displayAvatar ? (
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src={displayAvatar}
+                  alt=""
+                   className="h-8 w-8 shrink-0 rounded-full object-cover"
+                 />
+               ) : (
+                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-foreground/[0.06] text-[12.5px] font-bold text-foreground">
+                  {initial}
+                </span>
+              )}
+              <span className="min-w-0 truncate text-[14px] font-semibold text-foreground">
+                {displayName}
+              </span>
+            </button>
+
+            {/* Small settings icon button */}
+            <button
+              type="button"
+              onClick={() => navigateSmoothly("/settings")}
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-foreground/70 transition-colors hover:bg-foreground/[0.06] hover:text-foreground active:scale-95"
+              aria-label={language === "ar-eg" ? "الإعدادات" : "Settings"}
+            >
+              <Cog className="h-[20px] w-[20px]" strokeWidth={1.75} />
+            </button>
+
+            {/* Upgrade button with icon */}
             <button
               type="button"
               onClick={() => navigateSmoothly("/pricing")}
-              className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl text-[14.5px] font-semibold text-foreground transition-colors hover:bg-foreground/[0.05] active:scale-[0.98]"
+              className="flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-foreground px-3 text-[12.5px] font-semibold text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
               aria-label={language === "ar-eg" ? "ترقية الخطة" : "Upgrade plan"}
             >
-              <MegsyStar size={15} static className="text-foreground" />
+              <MegsyStar size={14} static className="" style={{ color: "var(--megsy-blue)" }} />
               <span>{language === "ar-eg" ? "ترقية" : "Upgrade"}</span>
             </button>
-            <span aria-hidden className="h-6 w-px shrink-0 bg-foreground/10" />
           </>
-        ) : null}
-
-        <button
-          type="button"
-          onClick={() => navigateSmoothly(activeUserId ? "/settings" : "/auth")}
-          dir="ltr"
-          className="flex h-11 flex-1 min-w-0 items-center justify-center gap-2 rounded-xl text-[14.5px] font-semibold text-foreground transition-colors hover:bg-foreground/[0.05] active:scale-[0.98]"
-          aria-label={activeUserId ? (language === "ar-eg" ? "الإعدادات" : "Settings") : (language === "ar-eg" ? "تسجيل الدخول" : "Sign in")}
-        >
-          {activeUserId ? (
-            <Settings2 className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
-          ) : (
+        ) : (
+          <button
+            type="button"
+            onClick={() => navigateSmoothly("/auth")}
+            dir="ltr"
+            className="flex h-11 flex-1 min-w-0 items-center justify-center gap-2 rounded-xl text-[14.5px] font-semibold text-foreground transition-colors hover:bg-foreground/[0.05] active:scale-[0.98]"
+            aria-label={language === "ar-eg" ? "تسجيل الدخول" : "Sign in"}
+          >
             <LogIn className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
-          )}
-          <span className="truncate">
-            {activeUserId
-              ? language === "ar-eg" ? "الإعدادات" : "Settings"
-              : language === "ar-eg" ? "تسجيل الدخول" : "Sign in"}
-          </span>
-        </button>
+            <span className="truncate">
+              {language === "ar-eg" ? "تسجيل الدخول" : "Sign in"}
+            </span>
+          </button>
+        )}
       </div>
 
 

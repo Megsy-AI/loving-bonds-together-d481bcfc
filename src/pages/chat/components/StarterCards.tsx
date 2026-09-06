@@ -4,7 +4,6 @@ import {
   Video as VideoIcon,
   Presentation,
   ScanSearch,
-  FileText,
 } from "lucide-react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { useUserLang } from "@/lib/authI18n";
@@ -22,7 +21,6 @@ const CARDS = [
   { id: "video", mode: "video", Icon: VideoIcon, title: "Video", titleAr: "فيديو" },
   { id: "slides", mode: "slides", Icon: Presentation, title: "Slides", titleAr: "عرض" },
   { id: "research", mode: "deep-research", Icon: ScanSearch, title: "Research", titleAr: "بحث" },
-  { id: "docs", mode: "docs", Icon: FileText, title: "Documents", titleAr: "مستند" },
 ];
 
 const handleCardClick = (

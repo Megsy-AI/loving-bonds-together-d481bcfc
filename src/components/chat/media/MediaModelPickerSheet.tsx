@@ -32,6 +32,20 @@ function ModelMonogram({ name, size = 64 }: { name: string; size?: number }) {
   );
 }
 
+/**
+ * Plain-language speed / quality / cost summary for a media model.
+ * Raw credit numbers and codenames mean little — describe the tradeoff.
+ */
+function describeModel(
+  model: { credits?: number; isPremium?: boolean },
+  kind: "image" | "video",
+): string {
+  const cost = Number(model.credits || 0);
+  const speed = cost <= 1 ? "Fastest" : cost <= 4 ? "Fast" : "Slower";
+  const quality = model.isPremium || cost > 4 ? "Best quality" : "Good quality";
+  return `${speed} · ${quality} · ${mediaModelBadge(model, kind)}`;
+}
+
 
 
 export interface MediaModelChoice {
@@ -137,7 +151,7 @@ export default function MediaModelPickerSheet({
                     {active && <Check className="h-4 w-4 text-foreground" strokeWidth={2.4} />}
                   </span>
                   <span className="text-[13px] text-muted-foreground">
-                    {mediaModelBadge(m, mode === "video" ? "video" : "image")}
+                    {describeModel(m, mode === "video" ? "video" : "image")}
                   </span>
                 </button>
               );
