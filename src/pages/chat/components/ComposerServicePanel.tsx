@@ -23,7 +23,7 @@ interface Props {
 
 /** Plain-text label for services that have no picker. */
 const SERVICE_LABELS: Record<string, string> = {
-  code: "Code",
+  code: "Website",
   dev: "Dev",
   "deep-research": "Deep research",
   learning: "Learning",
