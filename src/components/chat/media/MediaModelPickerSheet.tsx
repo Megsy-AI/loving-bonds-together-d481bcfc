@@ -26,21 +26,25 @@ function ModelIcon({ model }: { model: any }) {
   const src = isMegsy ? megsyModelIcon : model.thumbnailUrl || model.iconUrl;
   if (src) {
     return (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted/60 p-1.5">
-        <img src={src} alt="" className="h-full w-full object-contain" />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
+        <img
+          src={src}
+          alt=""
+          className={isMegsy ? "h-full w-full object-cover" : "h-full w-full object-contain"}
+        />
       </div>
     );
   }
   if (hasBrandIcon(model.name, model.provider)) {
     return (
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted/60 p-1.5">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
         <BrandIcon name={model.name} provider={model.provider} variant="color" size={24} />
       </div>
     );
   }
   const letter = (model.name || "?").trim().charAt(0).toUpperCase();
   return (
-    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-muted/60 text-[15px] font-bold text-foreground/70">
+    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[15px] font-bold text-foreground/70">
       {letter}
     </div>
   );
