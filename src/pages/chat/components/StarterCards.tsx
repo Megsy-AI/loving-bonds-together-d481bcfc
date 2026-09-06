@@ -37,14 +37,14 @@ const handleCardClick = (
 };
 
 const chipClass =
-  "group inline-flex h-9 items-center gap-2 rounded-full border border-foreground/[0.09] bg-background " +
-  "px-4 shadow-[0_1px_3px_rgba(0,0,0,0.05)] hover:bg-muted/50 active:scale-[0.97] " +
+  "group inline-flex h-10 items-center gap-2 rounded-xl border border-border bg-card " +
+  "px-3.5 hover:bg-muted active:scale-[0.97] " +
   "transition-[background-color,transform] duration-150";
 
 const iconClass =
-  "h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground";
+  "h-4 w-4 shrink-0 text-foreground/70 transition-colors group-hover:text-foreground";
 const labelClass =
-  "whitespace-nowrap text-[13px] font-medium text-foreground/80 transition-colors";
+  "whitespace-nowrap text-[13px] font-medium text-foreground transition-colors";
 
 /** Desktop-only: compact icon chips shown below the composer (no images). */
 export function StarterChips({ onPick, className = "" }: StarterCardsProps) {
@@ -96,7 +96,7 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
             onClick={() => handleCardClick(c, onPick)}
             className={`snap-start shrink-0 ${chipClass}`}
           >
-            <c.Icon className={iconClass} strokeWidth={1.75} />
+            <c.Icon className={iconClass} strokeWidth={2} />
             <span className={labelClass}>{isAr ? c.titleAr : c.title}</span>
           </button>
         ))}
