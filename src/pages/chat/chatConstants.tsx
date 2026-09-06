@@ -3,7 +3,6 @@
 // improve HMR / code-splitting.
 import { lazy, Suspense } from "react";
 import { BrandLogo } from "@/components/brand/BrandLogo";
-import megsyModelIcon from "@/assets/megsy-model.jpg";
 import {
   isLegacyMegsyChatSelection,
   MEGSY_CHAT_MODEL_LABEL,
@@ -375,13 +374,5 @@ export const ComposerModelIcon = ({
       </Suspense>
     );
   }
-  return (
-    <img
-      src={megsyModelIcon}
-      alt="Megsy"
-      className="h-[22px] w-[22px] rounded-md object-cover"
-      decoding="async"
-      loading="lazy"
-    />
-  );
+  return null;
 };

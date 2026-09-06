@@ -14,26 +14,37 @@ import { filterImageModels, filterVideoModels } from "@/lib/mediaModelPolicy";
 import { isUnlimitedMediaModel, mediaModelBadge } from "@/lib/mediaQuota";
 import MegsyStar from "@/components/branding/MegsyStar";
 import { useUserLang } from "@/lib/authI18n";
+import megsyModelIcon from "@/assets/megsy-model.jpg";
+
+/** Keep every description to three words max. */
+function shortDescription(text: string): string {
+  return text.replace(/\s+/g, " ").trim().split(" ").slice(0, 3).join(" ");
+}
 
 function ModelIcon({ model }: { model: any }) {
-  const src = model.thumbnailUrl || model.iconUrl;
+  const isMegsy = /megsy/i.test(String(model.name || ""));
+  const src = isMegsy ? megsyModelIcon : model.thumbnailUrl || model.iconUrl;
   if (src) {
     return (
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted/60 p-1.5">
-        <img src={src} alt="" className="h-full w-full object-contain" />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
+        <img
+          src={src}
+          alt=""
+          className={isMegsy ? "h-full w-full object-cover" : "h-full w-full object-contain"}
+        />
       </div>
     );
   }
   if (hasBrandIcon(model.name, model.provider)) {
     return (
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted/60 p-1.5">
-        <BrandIcon name={model.name} provider={model.provider} variant="color" size={28} />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
+        <BrandIcon name={model.name} provider={model.provider} variant="color" size={24} />
       </div>
     );
   }
   const letter = (model.name || "?").trim().charAt(0).toUpperCase();
   return (
-    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted/60 text-[15px] font-bold text-foreground/70">
+    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[15px] font-bold text-foreground/70">
       {letter}
     </div>
   );
@@ -46,8 +57,9 @@ function describeModel(
 ): string {
   const cost = Number(model.credits || 0);
   const speed = cost <= 1 ? "Fastest" : cost <= 4 ? "Fast" : "Slower";
-  const quality = model.isPremium || cost > 4 ? "Best quality" : "Good quality";
-  return `${speed} · ${quality} · ${mediaModelBadge(model, kind)}`;
+  const quality = model.isPremium || cost > 4 ? "best quality" : "good quality";
+  void kind;
+  return `${speed} ${quality}`;
 }
 
 export interface MediaModelChoice {
@@ -101,15 +113,15 @@ export default function MediaModelPickerSheet({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="bottom"
-        className="h-[68dvh] rounded-t-[28px] border-0 bg-background p-0"
+        className="max-h-[76dvh] rounded-t-[28px] border-0 bg-background p-0"
       >
-        <SheetHeader className="px-5 pb-1 pt-4">
+        <SheetHeader className="px-5 pb-1 pt-3.5">
           <SheetTitle className="text-center text-[15px] font-semibold text-foreground">
             {title}
           </SheetTitle>
         </SheetHeader>
-        <ScrollArea className="h-[calc(68dvh-64px)]">
-          <div className="px-3 pb-8 pt-1" dir="ltr">
+        <ScrollArea className="max-h-[calc(76dvh-58px)]">
+          <div className="space-y-0.5 px-2.5 pb-5 pt-0.5" dir="ltr">
             {loading && (
               <div className="py-10 text-center text-sm text-muted-foreground">Loading…</div>
             )}
@@ -124,7 +136,7 @@ export default function MediaModelPickerSheet({
                 mode === "video" ? isUnlimitedMediaModel(m) : isFreeModel(m.slug || m.id);
               const locked = !modelIsFree && !paid;
               const showPro = !!m.isPremium || locked;
-              const description = m.description || describeModel(m, mode === "video" ? "video" : "image");
+              const description = shortDescription(m.description || describeModel(m, mode === "video" ? "video" : "image"));
 
               return (
                 <button
@@ -148,34 +160,31 @@ export default function MediaModelPickerSheet({
                     });
                     toast.success(`Selected: ${m.name}`);
                   }}
-                  className={`flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition-colors active:scale-[0.99] ${
+                  className={`flex w-full items-center gap-2.5 rounded-2xl px-2.5 py-2 text-left transition-colors active:scale-[0.99] ${
                     active ? "bg-foreground/[0.04]" : "hover:bg-foreground/[0.03]"
                   }`}
                 >
                   {/* Selection checkmark */}
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center">
                     {active ? (
-                      <Check className="h-5 w-5 text-foreground" strokeWidth={2.4} />
+                      <Check className="h-4 w-4 text-foreground" strokeWidth={2.4} />
                     ) : null}
                   </div>
 
                   {/* Name + description */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-[15px] font-semibold text-foreground">
+                      <span className="truncate text-[14.5px] font-semibold text-foreground">
                         {m.name}
                       </span>
                       {showPro && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
-                          <MegsyStar
-                            className="h-2.5 w-2.5 text-[var(--megsy-blue)]"
-                            aria-hidden
-                          />
-                          Pro
-                        </span>
+                        <MegsyStar
+                          className="h-3 w-3 shrink-0 text-[var(--megsy-blue)]"
+                          aria-hidden
+                        />
                       )}
                     </div>
-                    <p className="line-clamp-1 text-[12.5px] leading-tight text-muted-foreground">
+                    <p className="line-clamp-1 text-[12px] leading-tight text-muted-foreground">
                       {description}
                     </p>
                   </div>
