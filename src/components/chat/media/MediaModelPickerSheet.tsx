@@ -174,9 +174,9 @@ export default function MediaModelPickerSheet({
                   {/* Name + description */}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-[14.5px] font-semibold text-foreground">
-                        {m.name}
-                      </span>
+                    <span className="truncate text-[14.5px] font-semibold text-foreground">
+                      {m.name.replace(/\s*Free\s*/gi, " ").trim()}
+                    </span>
                       {showPro && (
                         <MegsyStar
                           className="h-3 w-3 shrink-0 text-[var(--megsy-blue)]"
