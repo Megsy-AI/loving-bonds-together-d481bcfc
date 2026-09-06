@@ -936,12 +936,17 @@ export default defineConfig({
       : []),
   ],
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-      // Force ESM build of dayjs so Vite never tries to import the UMD
-      // `dayjs.min.js` build, which throws "does not provide an export named 'default'".
-      "dayjs": path.resolve(__dirname, "./node_modules/dayjs/esm/index.js"),
-    },
+    alias: [
+      { find: "@", replacement: path.resolve(__dirname, "./src") },
+      // Force the ESM build of dayjs's main entry only (exact match), so Vite
+      // never imports the UMD `dayjs.min.js` build, which throws
+      // "does not provide an export named 'default'". Subpaths such as
+      // `dayjs/plugin/customParseFormat.js` must keep resolving normally.
+      {
+        find: /^dayjs$/,
+        replacement: path.resolve(__dirname, "./node_modules/dayjs/esm/index.js"),
+      },
+    ],
   },
   optimizeDeps: {
     // Static HTML templates under public/templates/* import 3D libs from CDNs
