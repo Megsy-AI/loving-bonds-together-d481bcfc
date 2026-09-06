@@ -1,32 +1,19 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState, useLayoutEffect, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, useLayoutEffect, type ReactNode } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
-import {
-  ArrowLeft,
-  Check,
-  ChevronDown,
-  ChevronRight,
-  Image as ImageIcon,
-  Lock,
-  Sliders,
-  Video as VideoIcon,
-  X,
-} from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, ChevronRight, Lock, Sliders, X } from "lucide-react";
 import { toast } from "sonner";
 import { promptUpgrade } from "@/lib/upgradeMoment";
 import type { AgentModel } from "@/lib/agentRegistry";
-import {
-  groupModelsByProvider,
-  isHiddenMediaModel,
-  sortMediaModels,
-  useDynamicModels,
-} from "@/hooks/useModels";
-import { isPaidUser } from "@/lib/subscriptionGating";
 import type { MediaModelChoice } from "@/components/chat/media/MediaModelPickerSheet";
 import type { ChatMode } from "./chatConstants";
-import { CHAT_COMPOSER_MODEL_OPTIONS, ComposerModelIcon, getChatModelDisplayLabel, getEffortPresetsForModel } from "./chatConstants";
+import {
+  CHAT_COMPOSER_MODEL_OPTIONS,
+  ComposerModelIcon,
+  getChatModelDisplayLabel,
+  getEffortPresetsForModel,
+} from "./chatConstants";
 import { BrandLogo } from "@/components/brand/BrandLogo";
-import { BrandIcon, hasBrandIcon } from "@/components/chat/media/BrandIcon";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { DraggablePlusSheet } from "./components/DraggablePlusSheet";
 import {
@@ -35,9 +22,6 @@ import {
   glassModelMenuTriggerStyle,
 } from "@/components/model-picker/glassModelMenuStyles";
 import { readChatModelPreferences } from "@/lib/chatModelPreferences";
-
-const ImageToolsBar = lazy(() => import("@/components/chat/media/ImageToolsBar"));
-const VideoToolsBar = lazy(() => import("@/components/chat/media/VideoToolsBar"));
 
 const menuContainerVariants = {
   hidden: {},
