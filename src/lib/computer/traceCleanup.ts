@@ -9,7 +9,7 @@
 
 /** Internal-only bookkeeping that must never reach the chat. */
 const INTERNAL_LINE =
-  /(checkpoint saved|task_checkpointed|step_id|fingerprint|failure[_ ]class|sandbox unavailable|worker is not defined|unsupported tool|no code provided|could not save the file|answer:[a-z_]+|ambiguous_goal|provider_error|http \d{3}|\bnull\b\s*$|^\s*[[{].*[\]}]\s*$)/i;
+  /(checkpoint saved|task_checkpointed|step_id|fingerprint|failure[_ ]class|sandbox unavailable|worker is not defined|unsupported tool|no code provided|could not save the file|answer:[a-z_]+|ambiguous_goal|provider_error|http \d{3}|\bnull\b\s*$|^\s*[[{].*[\]}]\s*|plan set:\s*\d+\s*steps?)/i;
 
 /** Bare technical identifiers a model sometimes emits as a "step". */
 const BARE_IDENTIFIER = /^[a-z0-9]+([_-][a-z0-9]+){1,4}$/;
