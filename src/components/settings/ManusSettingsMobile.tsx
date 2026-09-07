@@ -167,12 +167,12 @@ const ManusSettingsMobile = () => {
   return (
     <div className="ms-root" dir={"ltr"}>
       <style>{manusCss}</style>
-      <div className="ms-screen">
+        <div className="ms-screen">
         <header className="ms-header">
-          <h1 className="ms-brand">megsy</h1>
           <button type="button" className="ms-hbtn" aria-label={authT("back")} onClick={() => navigate("/")}>
-            {isAr ? <ChevronLeft className="ms-hicon" /> : <ChevronRight className="ms-hicon" />}
+            {isAr ? <ChevronRight className="ms-hicon" /> : <ChevronLeft className="ms-hicon" />}
           </button>
+          <h1 className="ms-brand">megsy</h1>
         </header>
 
         <main className="ms-body">
@@ -267,7 +267,7 @@ const manusCss = `
   background: var(--mn-bg);
 }
 .ms-hbtn {
-  grid-column: 3;
+  grid-column: 1;
   position: relative; width: 44px; height: 44px; margin: -5px;
   display: inline-flex; align-items: center; justify-content: center;
   background: transparent; border: 0; color: var(--mn-fg); cursor: pointer;
