@@ -393,14 +393,8 @@ const AppSidebar = ({
     Icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
     path: string;
     match: (p: string) => boolean;
-  }> = [
-    {
-      label: uiT("sidebarHome"),
-      Icon: HomeIcon,
-      path: "/",
-      match: (p: string) => p === "/" || p.startsWith("/chat"),
-    },
-  ];
+  }> = [];
+
 
   const moreNav: Array<{
     label: string;
