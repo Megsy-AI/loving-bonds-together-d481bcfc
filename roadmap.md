@@ -34,3 +34,4 @@
 - [ ] Fix the first and last service chips being clipped.
 - [ ] Make Mail and Referrals standalone pages outside the Settings layout.
 - [ ] Match the Mail and Referrals mobile sidebar button to Chat exactly in style and placement.
+- [ ] Move referral Invite/Get Pro actions into the natural end of page content with no separate background or sticky bar.
