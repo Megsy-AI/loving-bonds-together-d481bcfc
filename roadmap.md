@@ -33,3 +33,4 @@
 - [x] Remove the top drag indicator from the mobile + menu.
 - [ ] Fix the first and last service chips being clipped.
 - [ ] Make Mail and Referrals standalone pages outside the Settings layout.
+- [ ] Match the Mail and Referrals mobile sidebar button to Chat exactly in style and placement.
