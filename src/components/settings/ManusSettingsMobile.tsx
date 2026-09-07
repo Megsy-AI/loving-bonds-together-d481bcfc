@@ -170,7 +170,7 @@ const ManusSettingsMobile = () => {
       <div className="ms-screen">
         <header className="ms-header">
           <h1 className="ms-brand">megsy</h1>
-          <button type="button" className="ms-hbtn" aria-label={authT("back")} onClick={() => goBackOr(navigate, "/chat")}>
+          <button type="button" className="ms-hbtn" aria-label={authT("back")} onClick={() => navigate("/")}>
             {isAr ? <ChevronLeft className="ms-hicon" /> : <ChevronRight className="ms-hicon" />}
           </button>
         </header>
