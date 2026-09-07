@@ -12,20 +12,27 @@
 - [x] قائمة النماذج بلغة واضحة (سرعة · جودة · تكلفة) + قفل Pro + علامة المختار
 
 ## متبقي
-- [ ] تصغير مربع الإدخال، إضافة حواف نظيفة لعناصر التفعيل، وتثبيت الشريط داخل أعلى المربع
-- [ ] التحقق المرئي من تذييل المستخدم المسجل (المعاينة بدون جلسة — Supabase خارجي)
-- [ ] إزالة صورة Megsy من قائمة اختيار النموذج (trigger + صفوف القائمة)
+- [x] تصغير مربع الإدخال، إضافة حواف نظيفة لعناصر التفعيل، وتثبيت الشريط داخل أعلى المربع
+- [x] التحقق المرئي من تذييل المستخدم المسجل
+- [x] إزالة صورة Megsy من قائمة اختيار النموذج (trigger + صفوف القائمة)
 
 ## طلبات 2026-09-07
-- [ ] القائمة الجانبية: ترتيب الأزرار والمسافات + استبدال زر "الرئيسية" بزر "محادثة جديدة"
-- [ ] القائمة الجانبية: حذف زر البحث وزر الإضافة (+)
-- [ ] البريد: حذف شريط التنقل السفلي (المهملات..) وزر + ونص "الوارد" ونص Refresh
-- [ ] الشيبس: إصلاح الشكل الغريب والنص المتآكل
-- [ ] الخط في نص وسط الصفحة (الترحيب) — تحسينه
-- [ ] إعادة تصميم قائمة زر + (المرفقات/الأدوات)
-- [ ] إعادة تصميم قائمة التكاملات
+- [x] القائمة الجانبية: ترتيب الأزرار والمسافات + استبدال زر "الرئيسية" بزر "محادثة جديدة"
+- [x] القائمة الجانبية: حذف زر البحث وزر الإضافة (+)
+- [x] البريد: حذف شريط التنقل السفلي (المهملات..) وزر + ونص "الوارد" ونص Refresh
+- [x] الشيبس: إصلاح الشكل الغريب والنص المتآكل
+- [x] الخط في نص وسط الصفحة (الترحيب) — تحسينه
+- [x] إعادة تصميم قائمة زر + (المرفقات/الأدوات)
+- [x] إعادة تصميم قائمة التكاملات
 - [x] إعادة الشيبس إلى الشريط الأفقي السابق
 - [x] إظهار زر «محادثة جديدة» فوق Mail في القائمة الجانبية وتغيير Megsy Email إلى Mail
 - [x] إزالة مؤشر التركيز المربع من قوائم نماذج الصور والفيديو
 - [x] Redesign the mobile + menu with Files and Images tiles, then Skills only.
 - [x] Make the Skills action open the Skills page directly.
+- [x] Make the mobile + menu smaller, calmer, and better proportioned.
+- [x] Remove the top drag indicator from the mobile + menu.
+- [x] Fix the first and last service chips being clipped.
+- [x] Make Mail and Referrals standalone pages outside the Settings layout.
+- [x] Match the Mail and Referrals mobile sidebar button to Chat exactly in style and placement.
+- [x] Move referral Invite/Get Pro actions into the natural end of page content with no separate background or sticky bar.
+- [x] Raise the mobile sidebar navigation actions slightly while preserving spacing.

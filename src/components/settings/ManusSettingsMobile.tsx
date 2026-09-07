@@ -95,7 +95,7 @@ const ManusSettingsMobile = () => {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => getStoredTheme());
 
   const mainRows: Row[] = [
-    { icon: MailIcon, label: "Mail", trailing: "@megsyai.com", path: "/settings/mail" },
+    { icon: MailIcon, label: "Mail", trailing: "@megsyai.com", path: "/mail" },
     { icon: KeyRound, label: "الباسوردات", path: "/settings/passwords" },
     { icon: Lightbulb, label: "Knowledge", path: "/settings/memory" },
     { icon: Bell, label: "Notifications", path: "/notifications" },
@@ -107,7 +107,7 @@ const ManusSettingsMobile = () => {
   ];
 
   const advancedRows: Row[] = [
-    { icon: Gift, label: "Referrals", path: "/settings/referrals" },
+    { icon: Gift, label: "Referrals", path: "/referrals" },
   ];
 
   const accountRows: Row[] = [

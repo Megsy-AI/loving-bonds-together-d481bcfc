@@ -26,7 +26,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { isPinned, setPinned } from "@/lib/sidebarPins";
-import DesktopSettingsLayout from "@/components/settings/DesktopSettingsLayout";
+import AppSidebar from "@/components/layout/AppSidebar";
 import MobilePushShell from "@/components/layout/MobilePushShell";
 import MobileSidebarButton from "@/components/shared/MobileSidebarButton";
 import { useSidebarCollapsed } from "@/hooks/useSidebarCollapsed";
@@ -213,10 +213,11 @@ export default function MailPage() {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [query, setQuery] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [, , toggleSidebar] = useSidebarCollapsed();
+  const [sidebarCollapsed] = useSidebarCollapsed();
   const [searching, setSearching] = useState(false);
   const [copied, setCopied] = useState(false);
   const [pinned, setPinnedState] = useState(() => isPinned("mail"));
+  const sidebarWidth = sidebarCollapsed ? 60 : 320;
 
   useEffect(() => {
     let alive = true;
@@ -508,34 +509,36 @@ export default function MailPage() {
       >
         <div className="min-h-[100dvh] bg-background text-foreground">
           <div
-            className="flex items-center gap-2 px-3 pb-1"
-            style={{ paddingTop: "max(env(safe-area-inset-top), 12px)" }}
+            className="fixed inset-x-0 z-30 flex min-h-[44px] items-center gap-2 bg-background px-3 py-1.5 pt-[max(env(safe-area-inset-top),0.25rem)]"
+            style={{ top: "var(--promo-banner-h, 0px)" }}
           >
             <MobileSidebarButton
-              edge
               onClick={() => setSidebarOpen(true)}
               ariaLabel={tx("Open menu")}
-              className="relative shrink-0"
+              className="shrink-0"
             />
             <h1 className="min-w-0 flex-1 truncate text-[19px] font-semibold tracking-tight">{tx("Mail")}</h1>
           </div>
-          <div className="px-4 pb-24">{Body}</div>
+          <div className="px-4 pb-24 pt-[calc(max(env(safe-area-inset-top),0.25rem)+52px)]">{Body}</div>
         </div>
       </MobilePushShell>
     );
   }
   return (
-    <DesktopSettingsLayout>
-      <div className="mx-auto w-full max-w-2xl px-4 md:px-0">
-        <header className="mb-4 flex items-center gap-3">
-          <RoundBtn label={tx("Open menu")} onClick={toggleSidebar}>
-            <PanelLeft className="h-[18px] w-[18px] rtl:rotate-180" />
-          </RoundBtn>
-          <h1 className="min-w-0 flex-1 text-[24px] font-semibold leading-tight tracking-tight">{tx("Mail")}</h1>
-        </header>
-        {Body}
-      </div>
-    </DesktopSettingsLayout>
+    <div className="flex h-[100dvh] w-full overflow-hidden bg-background text-foreground">
+      <aside
+        style={{ width: sidebarWidth, minWidth: sidebarWidth, flexBasis: sidebarWidth }}
+        className="relative z-40 hidden shrink-0 overflow-hidden transition-[width,min-width,flex-basis] duration-300 md:flex"
+      >
+        <AppSidebar open inline onClose={() => {}} onNewChat={() => navigate("/")} />
+      </aside>
+      <main className="min-w-0 flex-1 overflow-y-auto bg-background">
+        <div className="mx-auto w-full max-w-2xl px-5 py-7">
+          <h1 className="mb-4 text-[24px] font-semibold leading-tight tracking-tight">{tx("Mail")}</h1>
+          {Body}
+        </div>
+      </main>
+    </div>
   );
 }
 

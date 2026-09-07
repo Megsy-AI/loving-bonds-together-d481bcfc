@@ -412,9 +412,14 @@ const ReferralsPage = () => {
   };
 
   const content = (
-    <div className={`mx-auto flex w-full max-w-[620px] flex-col px-5 ${onRewards ? "pb-10" : "pb-6"} ${onRewards ? "pt-3" : "pt-14"} md:pt-7`}>
+    <div className={`mx-auto flex w-full max-w-[620px] flex-col px-5 ${onRewards ? "pb-10" : "pb-6"} ${onRewards ? "pt-3" : "pt-[calc(max(env(safe-area-inset-top),0.25rem)+52px)]"} md:pt-7`}>
       {onRewards || isDesktop ? null : (
-        <MobileSidebarButton edge onClick={() => setSidebarOpen(true)} />
+        <div
+          className="fixed inset-x-0 z-30 flex min-h-[44px] items-center bg-background px-3 py-1.5 pt-[max(env(safe-area-inset-top),0.25rem)]"
+          style={{ top: "var(--promo-banner-h, 0px)" }}
+        >
+          <MobileSidebarButton onClick={() => setSidebarOpen(true)} />
+        </div>
       )}
 
       <div className="flex flex-1 flex-col">
@@ -440,20 +445,11 @@ const ReferralsPage = () => {
     }
   };
 
-  /**
-   * Pinned actions — share the invite or claim Pro after five verified joins.
-   *
-   * This is `sticky` inside the scroll container, not `fixed` to the viewport:
-   * a fixed bar is centred on the whole window, so on desktop it drifted out
-   * of the content column and slid under the sidebar, and its full-width
-   * backdrop strip did not line up with the bordered button box.
-   */
   const actionBar = (
     <div
-      className="sticky bottom-0 z-30 border-t border-border bg-background/95 backdrop-blur"
-      style={{ paddingBottom: "max(env(safe-area-inset-bottom), 14px)" }}
+      className="bg-background pb-[max(env(safe-area-inset-bottom),14px)]"
     >
-      <div className="mx-auto w-full max-w-[620px] px-5 pt-3">
+      <div className="mx-auto w-full max-w-[620px] px-5 pt-2">
         <div className="flex flex-col gap-2.5">
           <button
             type="button"

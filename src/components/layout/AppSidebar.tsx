@@ -408,8 +408,8 @@ const AppSidebar = ({
   moreNav.push({
     label: "Mail",
     Icon: (props) => <MailIcon size={props.size} className={props.className} strokeWidth={props.strokeWidth} />,
-    path: "/settings/mail",
-    match: (p: string) => p.startsWith("/settings/mail"),
+    path: "/mail",
+    match: (p: string) => p.startsWith("/mail"),
   });
 
 
@@ -417,8 +417,8 @@ const AppSidebar = ({
   moreNav.push({
     label: uiT("sidebarEarn"),
     Icon: EarnIcon,
-    path: "/settings/referrals",
-    match: (p: string) => p.startsWith("/settings/referrals") && !p.includes("tasks"),
+    path: "/referrals",
+    match: (p: string) => p.startsWith("/referrals") && !p.includes("tasks"),
   });
 
   const handleNewChat = () => {
@@ -1005,7 +1005,7 @@ const AppSidebar = ({
       </div>
 
       <div
-        className="relative min-h-0 flex-1 overflow-y-auto px-3 py-3 [scrollbar-width:thin]"
+        className="relative min-h-0 flex-1 overflow-y-auto px-3 pb-3 pt-1 [scrollbar-width:thin]"
       >
         <div className="space-y-1 mb-3">
 
@@ -1263,7 +1263,7 @@ const AppSidebar = ({
   const isTransparentSurface =
     typeof window !== "undefined" &&
     (stripZonePrefix(window.location.pathname).startsWith("/chat") ||
-      stripZonePrefix(window.location.pathname).startsWith("/settings/referrals"));
+      stripZonePrefix(window.location.pathname).startsWith("/referrals"));
 
   return (
     <AnimatePresence>
