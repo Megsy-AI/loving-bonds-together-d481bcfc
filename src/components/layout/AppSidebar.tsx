@@ -11,7 +11,7 @@ import { useSidebarCollapsed } from "@/hooks/useSidebarCollapsed";
 import MegsyStar from "@/components/files/MegsyStar";
 import { BrandLogo, BrandWord } from "@/components/brand/BrandLogo";
 
-import { CornIcon, EarnIcon, HomeIcon } from "@/components/sidebar/SidebarIcons";
+import { CornIcon, EarnIcon } from "@/components/sidebar/SidebarIcons";
 import { useActiveWorkspaceId, WORKSPACE_CHANGED_EVENT } from "@/lib/activeWorkspace";
 import WorkspaceSwitcher from "@/components/workspace/WorkspaceSwitcher";
 import { useActiveAccount } from "@/hooks/useActiveAccount";
