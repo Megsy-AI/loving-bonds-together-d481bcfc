@@ -267,7 +267,7 @@ const manusCss = `
   background: var(--mn-bg);
 }
 .ms-hbtn {
-  grid-column: 3;
+  grid-column: 1;
   position: relative; width: 44px; height: 44px; margin: -5px;
   display: inline-flex; align-items: center; justify-content: center;
   background: transparent; border: 0; color: var(--mn-fg); cursor: pointer;
