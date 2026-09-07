@@ -85,17 +85,19 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
       <div
         data-starter-chips-scroll
         dir={isAr ? "rtl" : "ltr"}
-        className="flex w-full scroll-px-5 items-center gap-2 overflow-x-auto px-5 py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="grid w-full grid-cols-5 items-center gap-1 px-0 py-1.5"
       >
         {CARDS.map((c) => (
           <button
             key={c.id}
             type="button"
             onClick={() => handleCardClick(c, onPick)}
-            className={`shrink-0 ${chipClass}`}
+            className={`${chipClass} min-w-0 justify-center gap-1 px-1.5`}
           >
-            <c.Icon className={iconClass} strokeWidth={2} />
-            <span className={labelClass}>{isAr ? c.titleAr : c.title}</span>
+            <c.Icon className="h-3.5 w-3.5 shrink-0 text-foreground/70" strokeWidth={2} />
+            <span className="min-w-0 truncate text-[11px] font-medium text-foreground">
+              {isAr ? c.titleAr : c.title}
+            </span>
           </button>
         ))}
       </div>
