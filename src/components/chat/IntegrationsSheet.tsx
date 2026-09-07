@@ -214,11 +214,18 @@ export default function IntegrationsSheet({ open, onOpenChange }: Props) {
                       transition={SLIDE}
                       className="flex min-h-full flex-col"
                     >
-                      <h2 className="px-2 pb-4 text-start text-[20px] font-semibold text-foreground">
-                        {isArabic ? "التكاملات" : "Integrations"}
-                      </h2>
+                      <div className="px-2 pb-3">
+                        <h2 className="text-start text-[19px] font-semibold tracking-tight text-foreground">
+                          {isArabic ? "التكاملات" : "Integrations"}
+                        </h2>
+                        <p className="mt-0.5 text-start text-[12.5px] text-muted-foreground">
+                          {isArabic
+                            ? "اربط تطبيقاتك ليستخدمها ميغسي داخل المحادثة"
+                            : "Connect your apps so Megsy can use them in chat"}
+                        </p>
+                      </div>
 
-                      <div data-connectors-search className="flex h-12 items-center gap-2 rounded-[14px] border border-border bg-muted/45 px-3.5">
+                      <div data-connectors-search className="mx-2 flex h-11 items-center gap-2.5 rounded-full border border-border/70 bg-muted/40 px-4">
                         <Search className="h-4 w-4 shrink-0 text-foreground/65" />
                         <input
                           value={query}
@@ -241,13 +248,13 @@ export default function IntegrationsSheet({ open, onOpenChange }: Props) {
                         />
                       </div>
 
-                      <div className="mt-3 flex gap-1 rounded-[14px] bg-foreground/[0.04] p-1">
+                      <div className="mx-2 mt-3 flex gap-1 rounded-full bg-foreground/[0.045] p-1">
                         {TABS.map((t) => (
                           <button
                             key={t.id}
                             type="button"
                             onClick={() => setTab(t.id)}
-                            className={`flex-1 rounded-[11px] py-2 text-[13px] transition-colors ${
+                            className={`flex-1 rounded-full py-1.5 text-[13px] transition-colors ${
                               tab === t.id
                                 ? "bg-background font-medium text-foreground"
                                 : "bg-transparent text-foreground/50"
@@ -259,7 +266,7 @@ export default function IntegrationsSheet({ open, onOpenChange }: Props) {
                         ))}
                       </div>
 
-                      <div className="mt-2 flex-1">
+                      <div className="mt-2 flex-1 px-1">
                         {tab === "apis" ? (
                           <ApiAppsTab
                             query={query}

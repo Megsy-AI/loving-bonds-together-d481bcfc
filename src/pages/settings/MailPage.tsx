@@ -16,8 +16,6 @@ import {
   Paperclip,
   PanelLeft,
   PenLine,
-  Plus,
-  RefreshCw,
   Search as SearchIcon,
   Send,
   Trash2,
@@ -323,42 +321,10 @@ export default function MailPage() {
     setTimeout(() => setCopied(false), 1600);
   };
 
-  const folderLabel = FOLDERS.find((f) => f.key === folder)?.label ?? "Inbox";
 
-  /* ── Header: folder title + quiet actions ── */
-  const Header = (
-    <motion.header
-      initial={{ opacity: 0, y: -6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-      className="px-1"
-    >
-      <div className="flex items-center gap-3">
-        <h2 className="min-w-0 flex-1 truncate text-[28px] font-semibold leading-tight tracking-tight">
-          {tx(folderLabel)}
-        </h2>
-        <div className="flex shrink-0 items-center gap-1">
-          <RoundBtn
-            label={tx(pinned ? "Remove from sidebar" : "Add to sidebar")}
-            tone={pinned ? "accent" : "plain"}
-            onClick={() => {
-              setPinned("mail", !pinned);
-              setPinnedState(!pinned);
-              toast.success(tx(pinned ? "Removed from sidebar" : "Added to sidebar"));
-            }}
-          >
-            {pinned ? <Check className="h-[18px] w-[18px]" /> : <PanelLeft className="h-[18px] w-[18px]" />}
-          </RoundBtn>
-          <RoundBtn label={tx("Refresh")} onClick={() => void refresh(folder)}>
-            <RefreshCw className={`h-[18px] w-[18px] ${loading || syncing ? "animate-spin" : ""}`} />
-          </RoundBtn>
-          <RoundBtn label={tx("Search email")} onClick={() => setSearching((s) => !s)}>
-            {searching ? <X className="h-[18px] w-[18px]" /> : <SearchIcon className="h-[18px] w-[18px]" />}
-          </RoundBtn>
-        </div>
-      </div>
-    </motion.header>
-  );
+  /* ── Header removed (clean, title-less mail surface) ── */
+  const Header = null;
+
 
 
   /* ── Address line (tap to copy) + optional search field ── */
@@ -497,61 +463,12 @@ export default function MailPage() {
   );
 
   const Body = (
-    <section className="pb-32">
+    <section className="pb-16">
       {Header}
       {Meta}
       {List}
 
-      {/* iOS 26-style liquid glass tab dock + compose FAB — portalled so page
-          transforms in the settings shell can't break `position: fixed`. */}
-      {createPortal(
-        <div
-          className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-4"
-          style={{ bottom: "calc(20px + env(safe-area-inset-bottom, 0px))" }}
-        >
-          <div className="pointer-events-auto flex items-center gap-2">
-            <div
-              className="relative flex items-center gap-1 border border-foreground/40 bg-card/55 p-1.5 shadow-[0_18px_44px_-12px_hsl(var(--foreground)/0.28),inset_0_1px_0_hsl(0_0%_100%/0.5)] backdrop-blur-2xl backdrop-saturate-150 dark:border-foreground/10"
-              style={{ borderRadius: 9999 }}
-            >
-              {FOLDERS.map((f) => {
-                const active = folder === f.key;
-                return (
-                  <button
-                    key={f.key}
-                    onClick={() => setFolder(f.key)}
-                    style={{ borderRadius: 9999 }}
-                    className={`relative px-3.5 py-2 text-[12.5px] font-semibold transition-colors duration-200 ${
-                      active ? "text-primary-foreground" : "text-foreground/55 hover:text-foreground/85"
-                    }`}
-                  >
-                    {active && (
-                      <motion.span
-                        layoutId="mail-dock-pill"
-                        transition={{ type: "spring", bounce: 0.32, duration: 0.55 }}
-                        className="absolute inset-0 rounded-full bg-primary shadow-[0_6px_18px_-4px_hsl(var(--primary)/0.55),inset_0_1px_0_hsl(0_0%_100%/0.35)]"
-                      />
-                    )}
-                    <span className="relative z-10">{tx(f.label)}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <button
-              type="button"
-              aria-label={tx("Compose")}
-              onClick={() => setDraft({ to: "", subject: "", text: "" })}
-              style={{ borderRadius: 9999 }}
-              className="grid h-12 w-12 place-items-center border border-foreground/30 bg-primary/90 text-primary-foreground shadow-[0_14px_30px_-8px_hsl(var(--primary)/0.6),inset_0_1px_0_hsl(0_0%_100%/0.35)] backdrop-blur-xl transition-transform active:scale-90"
-            >
-              <span className="contents">
-                <Plus className="h-5 w-5" />
-              </span>
-            </button>
-          </div>
-        </div>,
-        document.body,
-      )}
+
 
       {open && (
         <MessageView

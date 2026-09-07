@@ -11,7 +11,7 @@ import { useSidebarCollapsed } from "@/hooks/useSidebarCollapsed";
 import MegsyStar from "@/components/files/MegsyStar";
 import { BrandLogo, BrandWord } from "@/components/brand/BrandLogo";
 
-import { CornIcon, EarnIcon, HomeIcon } from "@/components/sidebar/SidebarIcons";
+import { CornIcon, EarnIcon } from "@/components/sidebar/SidebarIcons";
 import { useActiveWorkspaceId, WORKSPACE_CHANGED_EVENT } from "@/lib/activeWorkspace";
 import WorkspaceSwitcher from "@/components/workspace/WorkspaceSwitcher";
 import { useActiveAccount } from "@/hooks/useActiveAccount";
@@ -393,14 +393,8 @@ const AppSidebar = ({
     Icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
     path: string;
     match: (p: string) => boolean;
-  }> = [
-    {
-      label: uiT("sidebarHome"),
-      Icon: HomeIcon,
-      path: "/",
-      match: (p: string) => p === "/" || p.startsWith("/chat"),
-    },
-  ];
+  }> = [];
+
 
   const moreNav: Array<{
     label: string;
@@ -545,10 +539,35 @@ const AppSidebar = ({
         )}
       </div>
 
+      {/* NEW CHAT — first item, same rhythm as the nav list */}
+      <div className={`shrink-0 ${isCollapsed ? "px-2 pt-3 flex justify-center" : "px-3 pt-3"}`}>
+        <button
+          onClick={handleNewChat}
+          title={isBuildMode ? "New project" : "New chat"}
+          aria-label={isBuildMode ? "New project" : "New chat"}
+          className={
+            isCollapsed
+              ? "w-10 h-10 grid place-items-center rounded-xl transition-colors hover:bg-[var(--overlay-white-08)]"
+              : "group w-full h-10 pl-3 pr-3 flex items-center gap-3 rounded-xl transition-colors hover:bg-[var(--overlay-white-06)]"
+          }
+          style={{ color: "var(--overlay-white-100)" }}
+        >
+          <span className="shrink-0">
+            <Plus size={17} strokeWidth={2.2} />
+          </span>
+          {!isCollapsed && (
+            <span className="text-[13px] tracking-tight flex-1 text-left" style={{ fontWeight: 600 }}>
+              {isBuildMode ? "New project" : "New chat"}
+            </span>
+          )}
+        </button>
+      </div>
+
       {/* NAV — clean iOS-style list: Apps always visible, rest behind More */}
       <div
-        className={`shrink-0 ${isCollapsed ? "px-2 py-3 flex flex-col items-center gap-1" : "px-3 pt-3 pb-3 flex flex-col gap-0.5"}`}
+        className={`shrink-0 ${isCollapsed ? "px-2 pt-1 pb-3 flex flex-col items-center gap-1" : "px-3 pt-1 pb-3 flex flex-col gap-0.5"}`}
       >
+
         {primaryNav.map(({ label, Icon, path, match }) => {
           const active = match(currentAppPath);
           if (isCollapsed) {
@@ -761,36 +780,6 @@ const AppSidebar = ({
         </div>
       )}
 
-      {/* NEW CHAT — Liquid Glass capsule */}
-      <AnimatePresence initial={false}>
-        {!isCollapsed && (
-          <motion.div
-            key="new-chat-btn"
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="relative shrink-0 px-3 pb-2"
-          >
-            <button
-              onClick={handleNewChat}
-              style={{
-                background: "var(--overlay-white-06)",
-                color: "var(--overlay-white-100)",
-                border: "1px solid var(--overlay-white-14)",
-                boxShadow:
-                  "inset 0 1px 1px var(--overlay-white-12), 0 8px 20px -8px var(--overlay-black-50)",
-                fontWeight: 600,
-              }}
-              className="w-full h-11 px-4 flex items-center justify-between rounded-2xl transition-all duration-300 hover:bg-[var(--overlay-white-10)] active:scale-[0.98] text-[13.5px] tracking-tight"
-              title={isBuildMode ? "New project" : "New chat"}
-            >
-              <span>{isBuildMode ? "New project" : "New chat"}</span>
-              <Plus className="w-4 h-4" strokeWidth={2} />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
 
       {/* SCROLLABLE — conversations or sub-nav */}

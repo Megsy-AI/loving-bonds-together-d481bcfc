@@ -172,6 +172,15 @@ const PlusMain = (p: PlusContentProps) => {
       Icon: Blocks,
       onClick: () => p.setPlusView("skills"),
     },
+    {
+      id: "integrations",
+      label: isArabic ? "التكاملات" : "Integrations",
+      Icon: Plug,
+      onClick: () => {
+        p.setPlusMenuOpen(false);
+        window.dispatchEvent(new CustomEvent("megsy:open-integrations"));
+      },
+    },
   ];
 
 
@@ -309,105 +318,63 @@ const PlusMain = (p: PlusContentProps) => {
 
 
       {/* DESKTOP */}
-      <div className="hidden md:flex flex-col gap-2.5">
-        <DesktopGroup>
-          {[
-            {
-              icon: Image,
-              label: "Images",
-              onClick: () => {
-                p.imageInputRef.current?.click();
-                p.setPlusMenuOpen(false);
-              },
+      <div className="hidden md:flex flex-col gap-1 py-1">
+        {[
+          {
+            icon: Image,
+            label: "Images",
+            desc: "Attach photos from your device",
+            onClick: () => {
+              p.imageInputRef.current?.click();
+              p.setPlusMenuOpen(false);
             },
-            {
-              icon: FileUp,
-              label: "Files",
-              onClick: () => {
-                p.fileInputRef.current?.click();
-                p.setPlusMenuOpen(false);
-              },
+          },
+          {
+            icon: FileUp,
+            label: "Files",
+            desc: "PDF, docs, sheets and more",
+            onClick: () => {
+              p.fileInputRef.current?.click();
+              p.setPlusMenuOpen(false);
             },
-            {
-              icon: Blocks,
-              label: "Skills",
-              onClick: () => {
-                p.setPlusView("skills");
-              },
+          },
+          {
+            icon: Blocks,
+            label: "Skills",
+            desc: "Enable extra abilities",
+            onClick: () => {
+              p.setPlusView("skills");
             },
-          ].map(({ icon: Icon, label, onClick }) => (
-            <button
-              key={label}
-              onClick={onClick}
-              className="w-full flex items-center gap-3 px-2.5 h-9 rounded-[10px] text-start hover:bg-foreground/[0.06] transition-colors"
+          },
+          {
+            icon: Plug,
+            label: "Integrations",
+            desc: "Connect your apps",
+            onClick: () => {
+              p.setPlusMenuOpen(false);
+              window.dispatchEvent(new CustomEvent("megsy:open-integrations"));
+            },
+          },
+        ].map(({ icon: Icon, label, desc, onClick }) => (
+          <button
+            key={label}
+            onClick={onClick}
+            className="group w-full flex items-center gap-3 px-2 py-2 rounded-[14px] text-start transition-colors hover:bg-foreground/[0.05]"
+          >
+            <span
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-foreground/80 transition-colors group-hover:text-foreground"
+              style={{ background: "hsl(var(--foreground) / 0.055)" }}
             >
-              <Icon className="w-[18px] h-[18px] text-foreground/70 shrink-0" strokeWidth={1.8} />
-              <span className="flex-1 text-[13.5px] font-medium text-foreground truncate">{label}</span>
-            </button>
-          ))}
-        </DesktopGroup>
-
-        {false && (
-          <>
-            <DesktopGroup>
-              <DesktopRow
-                Icon={ImagePlus}
-                label="Create or edit image"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("images");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={VideoIcon}
-                label="Create video"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("video");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={Presentation}
-                label="Create slides"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("slides");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={Code2}
-                label="Create a website"
-                color="currentColor"
-                onClick={() => {
-                  p.onWebsiteStart?.();
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={ScanSearch}
-                label={p.chatMode === "deep-research" ? "Deep research on" : "Deep research"}
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("deep-research");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={Lightbulb}
-                label="Learning mode"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("learning");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-            </DesktopGroup>
-          </>
-        )}
+              <Icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
+            </span>
+            <span className="flex-1 min-w-0 flex flex-col gap-0.5">
+              <span className="truncate text-[13.5px] font-medium leading-none text-foreground">{label}</span>
+              <span className="truncate text-[11.5px] leading-tight text-muted-foreground">{desc}</span>
+            </span>
+          </button>
+        ))}
       </div>
+
     </motion.div>
   );
 };

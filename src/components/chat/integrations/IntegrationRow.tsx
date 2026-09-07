@@ -60,8 +60,8 @@ export default function IntegrationRow({ item, connected, busy, onOpen }: RowPro
       type="button"
       onClick={onOpen}
       data-integration-row
-      className="flex w-full items-center gap-3 rounded-[14px] px-2 py-2.5 text-start transition-colors active:bg-foreground/[0.05]"
-      style={{ border: 0, background: "transparent", minHeight: 58 }}
+      className="flex w-full items-center gap-3 rounded-[14px] px-2.5 py-2.5 text-start transition-colors hover:bg-foreground/[0.04] active:bg-foreground/[0.06]"
+      style={{ border: 0, background: "transparent", minHeight: 56 }}
       aria-label={item.name}
     >
       <IntegrationLogo item={item} />

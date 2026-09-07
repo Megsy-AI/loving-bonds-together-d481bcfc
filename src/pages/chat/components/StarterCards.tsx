@@ -80,37 +80,29 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className={`pointer-events-auto relative w-full overflow-hidden md:hidden ${className}`}
+      className={`pointer-events-auto relative w-full md:hidden ${className}`}
     >
       <div
         data-starter-chips-scroll
         dir={isAr ? "rtl" : "ltr"}
-        className="flex w-full snap-x snap-proximity gap-2 overflow-x-auto overscroll-x-contain ps-3 pe-8 py-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
+        className="flex w-full flex-wrap items-center justify-center gap-2 px-3 py-1.5"
       >
         {CARDS.map((c) => (
           <button
             key={c.id}
             type="button"
             onClick={() => handleCardClick(c, onPick)}
-            className={`snap-start shrink-0 ${chipClass}`}
+            className={`shrink-0 ${chipClass}`}
           >
             <c.Icon className={iconClass} strokeWidth={2} />
             <span className={labelClass}>{isAr ? c.titleAr : c.title}</span>
           </button>
         ))}
       </div>
-      {/* Edge fade hints that the row scrolls */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute inset-y-0 w-10 ${
-          isAr
-            ? "left-0 bg-gradient-to-r from-background to-transparent"
-            : "right-0 bg-gradient-to-l from-background to-transparent"
-        }`}
-      />
     </motion.div>
   );
 }
+
 
 
 export default StarterCards;
