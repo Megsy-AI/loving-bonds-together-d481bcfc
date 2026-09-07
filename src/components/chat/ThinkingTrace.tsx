@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import ToolIcon from "./primitives/ToolIcon";
 import MegsyStar from "@/components/branding/MegsyStar";
 import { BrandLogo } from "@/components/brand/BrandLogo";
