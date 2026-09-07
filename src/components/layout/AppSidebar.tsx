@@ -543,8 +543,8 @@ const AppSidebar = ({
       <div className={`shrink-0 ${isCollapsed ? "px-2 pt-3 flex justify-center" : "px-3 pt-3"}`}>
         <button
           onClick={handleNewChat}
-          title={isBuildMode ? "New project" : "New chat"}
-          aria-label={isBuildMode ? "New project" : "New chat"}
+          title={isBuildMode ? "مشروع جديد" : "محادثة جديدة"}
+          aria-label={isBuildMode ? "مشروع جديد" : "محادثة جديدة"}
           className={
             isCollapsed
               ? "w-10 h-10 grid place-items-center rounded-xl transition-colors hover:bg-[var(--overlay-white-08)]"
@@ -557,7 +557,7 @@ const AppSidebar = ({
           </span>
           {!isCollapsed && (
             <span className="text-[13px] tracking-tight flex-1 text-left" style={{ fontWeight: 600 }}>
-              {isBuildMode ? "New project" : "New chat"}
+              {isBuildMode ? "مشروع جديد" : "محادثة جديدة"}
             </span>
           )}
         </button>
