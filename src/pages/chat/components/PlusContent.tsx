@@ -172,6 +172,15 @@ const PlusMain = (p: PlusContentProps) => {
       Icon: Blocks,
       onClick: () => p.setPlusView("skills"),
     },
+    {
+      id: "integrations",
+      label: isArabic ? "التكاملات" : "Integrations",
+      Icon: Plug,
+      onClick: () => {
+        p.setPlusMenuOpen(false);
+        window.dispatchEvent(new CustomEvent("megsy:open-integrations"));
+      },
+    },
   ];
 
 
