@@ -103,7 +103,7 @@ const ReferralResourcesPage = () => {
       >
         <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/")}
             aria-label="Back"
             className="-ml-1 grid h-11 w-11 place-items-center rounded-full transition active:scale-90"
             style={{ color: TEXT }}
