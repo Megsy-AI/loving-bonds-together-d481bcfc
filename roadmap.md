@@ -41,3 +41,7 @@
 - [x] Keep service names fully visible on mobile chips.
 - [x] Make mobile service chips simple rounded rectangles.
 - [x] Push the referral Invite/Get Pro actions to the literal bottom of the screen.
+
+## طلبات 2026-09-07 (جديدة)
+- [x] شريط الكومبيوتر: تصميم موحد مع الشيبس + شريط إغلاق علوي عند التوسيع
+- [x] مؤشر التفكير/الخطوات: إزالة الأرقام واستبدالها بأيقونات الأدوات، وتنظيف نص "Plan set"
