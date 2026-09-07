@@ -780,36 +780,6 @@ const AppSidebar = ({
         </div>
       )}
 
-      {/* NEW CHAT — Liquid Glass capsule */}
-      <AnimatePresence initial={false}>
-        {!isCollapsed && (
-          <motion.div
-            key="new-chat-btn"
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="relative shrink-0 px-3 pb-2"
-          >
-            <button
-              onClick={handleNewChat}
-              style={{
-                background: "var(--overlay-white-06)",
-                color: "var(--overlay-white-100)",
-                border: "1px solid var(--overlay-white-14)",
-                boxShadow:
-                  "inset 0 1px 1px var(--overlay-white-12), 0 8px 20px -8px var(--overlay-black-50)",
-                fontWeight: 600,
-              }}
-              className="w-full h-11 px-4 flex items-center justify-between rounded-2xl transition-all duration-300 hover:bg-[var(--overlay-white-10)] active:scale-[0.98] text-[13.5px] tracking-tight"
-              title={isBuildMode ? "New project" : "New chat"}
-            >
-              <span>{isBuildMode ? "New project" : "New chat"}</span>
-              <Plus className="w-4 h-4" strokeWidth={2} />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
 
       {/* SCROLLABLE — conversations or sub-nav */}
