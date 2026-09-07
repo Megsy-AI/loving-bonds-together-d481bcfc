@@ -27,5 +27,5 @@
 - [x] إعادة الشيبس إلى الشريط الأفقي السابق
 - [x] إظهار زر «محادثة جديدة» فوق Mail في القائمة الجانبية وتغيير Megsy Email إلى Mail
 - [x] إزالة مؤشر التركيز المربع من قوائم نماذج الصور والفيديو
-- [ ] Redesign the mobile + menu with Files and Images tiles, then Skills only.
-- [ ] Make the Skills action open the Skills page directly.
+- [x] Redesign the mobile + menu with Files and Images tiles, then Skills only.
+- [x] Make the Skills action open the Skills page directly.

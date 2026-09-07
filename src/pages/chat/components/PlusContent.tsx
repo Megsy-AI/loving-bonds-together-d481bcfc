@@ -146,13 +146,10 @@ const PlusMain = (p: PlusContentProps) => {
     fn();
   };
 
-  // Mobile quick-attach squares.
-
-
-  // Mobile quick-attach squares — images + files only.
+  // Mobile quick actions — the two most common attachment types only.
   const quickTiles: Tile[] = [
-    { id: "photos", label: isArabic ? "الصور" : "Images", Icon: Images, onClick: closeThen(() => p.imageInputRef.current?.click()) },
     { id: "files", label: isArabic ? "ملفات" : "Files", Icon: Paperclip, onClick: closeThen(() => p.fileInputRef.current?.click()) },
+    { id: "photos", label: isArabic ? "الصور" : "Images", Icon: Images, onClick: closeThen(() => p.imageInputRef.current?.click()) },
   ];
 
   type RowItem = {
@@ -169,17 +166,9 @@ const PlusMain = (p: PlusContentProps) => {
     {
       id: "skills",
       label: isArabic ? "المهارات" : "Skills",
+      desc: isArabic ? "خصص طريقة عمل Megsy" : "Customize how Megsy works",
       Icon: Blocks,
-      onClick: () => p.setPlusView("skills"),
-    },
-    {
-      id: "integrations",
-      label: isArabic ? "التكاملات" : "Integrations",
-      Icon: Plug,
-      onClick: () => {
-        p.setPlusMenuOpen(false);
-        window.dispatchEvent(new CustomEvent("megsy:open-integrations"));
-      },
+      onClick: closeThen(() => p.navigate("/settings/skills")),
     },
   ];
 
@@ -266,45 +255,58 @@ const PlusMain = (p: PlusContentProps) => {
   return (
     <motion.div key="main" {...fadeProps(-8)} className="flex flex-col">
       {/* MOBILE — bottom sheet */}
-       <div dir={isArabic ? "rtl" : "ltr"} className="md:hidden flex flex-col py-2" style={{ fontFamily: mobileFont }}>
+       <div dir={isArabic ? "rtl" : "ltr"} className="md:hidden flex flex-col pb-1" style={{ fontFamily: mobileFont }}>
         <style>{`
-          .kimi-tile { transition: transform 170ms cubic-bezier(0.32,0.72,0,1), background-color 170ms ease; }
-          .kimi-tile:active { transform: scale(0.955); background-color: hsl(var(--foreground) / 0.09); }
-          .plus-row { transition: background-color 160ms ease; }
-          .plus-row:active { background-color: hsl(var(--foreground) / 0.05); }
-          .kimi-scroll { scrollbar-width: none; -ms-overflow-style: none; }
-          .kimi-scroll::-webkit-scrollbar { display: none; }
+           .plus-action-tile { transition: transform 160ms cubic-bezier(0.32,0.72,0,1), background-color 160ms ease; }
+           .plus-action-tile:active { transform: scale(0.97); background-color: hsl(var(--muted) / 0.88); }
+           .plus-skill-row { transition: transform 160ms cubic-bezier(0.32,0.72,0,1), background-color 160ms ease; }
+           .plus-skill-row:active { transform: scale(0.985); background-color: hsl(var(--muted) / 0.62); }
         `}</style>
 
-        {/* A compact Gemini-style list: images, files and skills only. */}
-        <div className="flex flex-col px-2">
-          {quickTiles.map((t) => (
+         <div className="flex flex-col gap-3 px-1">
+           <div className="grid grid-cols-2 gap-2.5">
+           {quickTiles.map((t) => (
             <button
               key={t.id}
               data-no-neo
               type="button"
               onClick={t.onClick}
               aria-label={t.label}
-              className="kimi-tile flex min-h-[68px] w-full items-center gap-3 border-0 bg-transparent px-3 py-2 text-start"
+               className="plus-action-tile flex min-h-[96px] w-full flex-col items-start justify-between rounded-2xl bg-muted/55 p-3.5 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <span
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-muted"
+                 className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-background text-foreground shadow-sm"
               >
-                <t.Icon className="h-[21px] w-[21px] text-foreground/85" strokeWidth={1.8} />
+                 <t.Icon className="h-[19px] w-[19px]" strokeWidth={1.9} />
               </span>
-              <span className="flex-1 text-[16px] font-medium leading-none text-foreground">
+               <span className="text-[15px] font-semibold leading-none text-foreground">
                 {t.label}
               </span>
             </button>
           ))}
-          {rows.map((it) => (
-            <div key={it.id}>
-              <SheetRow item={it} expanded={it.id === "search" && searchOpen} />
-              {it.id === "search" && (
-                <AnimatePresence initial={false}>{searchOpen && <SearchModeList compact />}</AnimatePresence>
-              )}
-            </div>
-          ))}
+           </div>
+
+           {rows.map((item) => (
+             <button
+               key={item.id}
+               data-no-neo
+               type="button"
+               onClick={item.onClick}
+               className="plus-skill-row flex min-h-[72px] w-full items-center gap-3 rounded-2xl bg-transparent px-2.5 py-2 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+             >
+               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted/65 text-foreground">
+                 <item.Icon className="h-5 w-5" strokeWidth={1.9} />
+               </span>
+               <span className="min-w-0 flex-1">
+                 <span className="block text-[15px] font-semibold leading-5 text-foreground">{item.label}</span>
+                 <span className="mt-0.5 block truncate text-[12px] leading-4 text-muted-foreground">{item.desc}</span>
+               </span>
+               <ChevronLeft
+                 className={`h-[17px] w-[17px] shrink-0 text-muted-foreground/70 ${isArabic ? "" : "rotate-180"}`}
+                 strokeWidth={1.8}
+               />
+             </button>
+           ))}
         </div>
       </div>
 
