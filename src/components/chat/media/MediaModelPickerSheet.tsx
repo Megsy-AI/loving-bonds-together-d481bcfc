@@ -115,7 +115,8 @@ export default function MediaModelPickerSheet({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="bottom"
-        className="max-h-[76dvh] rounded-t-[28px] border-0 bg-background p-0"
+        onOpenAutoFocus={(event) => event.preventDefault()}
+        className="max-h-[76dvh] rounded-t-[28px] border-0 bg-background p-0 [&>button.absolute]:hidden"
       >
         <SheetHeader className="px-5 pb-1 pt-3.5">
           <SheetTitle className="text-center text-[15px] font-semibold text-foreground">

@@ -406,7 +406,7 @@ const AppSidebar = ({
 
   // Megsy Email is always available in the sidebar.
   moreNav.push({
-    label: "Megsy Email",
+    label: "Mail",
     Icon: (props) => <MailIcon size={props.size} className={props.className} strokeWidth={props.strokeWidth} />,
     path: "/settings/mail",
     match: (p: string) => p.startsWith("/settings/mail"),
@@ -1056,6 +1056,21 @@ const AppSidebar = ({
                 transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden flex flex-col gap-1"
               >
+                <motion.button
+                  key="new-chat"
+                  onClick={handleNewChat}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ color: TEXT, backgroundColor: "transparent", border: "none", fontWeight: 700 }}
+                  className="w-full h-11 px-2 flex items-center gap-3 rounded-none transition-all active:scale-95"
+                  aria-label={isBuildMode ? "مشروع جديد" : "محادثة جديدة"}
+                >
+                  <Plus size={19} strokeWidth={2.2} />
+                  <span className="text-[14.5px]">
+                    {isBuildMode ? "مشروع جديد" : "محادثة جديدة"}
+                  </span>
+                </motion.button>
                 {moreNav.map(({ label, Icon, path, match }, i) => {
                   const active = match(currentAppPath);
                   return (

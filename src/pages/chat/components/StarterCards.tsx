@@ -85,7 +85,7 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
       <div
         data-starter-chips-scroll
         dir={isAr ? "rtl" : "ltr"}
-        className="flex w-full flex-wrap items-center justify-center gap-2 px-3 py-1.5"
+        className="flex w-full items-center gap-2 overflow-x-auto px-3 py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {CARDS.map((c) => (
           <button
