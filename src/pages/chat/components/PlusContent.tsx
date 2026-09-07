@@ -375,68 +375,6 @@ const PlusMain = (p: PlusContentProps) => {
         ))}
       </div>
 
-
-        {false && (
-          <>
-            <DesktopGroup>
-              <DesktopRow
-                Icon={ImagePlus}
-                label="Create or edit image"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("images");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={VideoIcon}
-                label="Create video"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("video");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={Presentation}
-                label="Create slides"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("slides");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={Code2}
-                label="Create a website"
-                color="currentColor"
-                onClick={() => {
-                  p.onWebsiteStart?.();
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={ScanSearch}
-                label={p.chatMode === "deep-research" ? "Deep research on" : "Deep research"}
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("deep-research");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-              <DesktopRow
-                Icon={Lightbulb}
-                label="Learning mode"
-                color="currentColor"
-                onClick={() => {
-                  p.onModeChange?.("learning");
-                  p.setPlusMenuOpen(false);
-                }}
-              />
-            </DesktopGroup>
-          </>
-        )}
-      </div>
     </motion.div>
   );
 };
