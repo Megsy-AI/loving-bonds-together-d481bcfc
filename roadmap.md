@@ -37,3 +37,4 @@
 - [x] Move referral Invite/Get Pro actions into the natural end of page content with no separate background or sticky bar.
 - [x] Place the referral actions as the final element inside the page content column.
 - [x] Raise the mobile sidebar navigation actions slightly while preserving spacing.
+- [ ] Stretch the service row so Images begins at the screen edge and Research ends at the opposite edge.
