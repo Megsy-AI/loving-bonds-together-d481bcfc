@@ -18,10 +18,8 @@ interface DraggablePlusSheetProps {
 /**
  * iOS-style springs.
  * SNAP  - firm, used for every settle (open / collapse / expand / close).
- * SOFT  - slightly softer, used for the handle morph.
  */
 const SNAP = { type: "spring" as const, stiffness: 460, damping: 44, mass: 0.9 };
-const SOFT = { type: "spring" as const, stiffness: 300, damping: 34, mass: 0.9 };
 /** Dismissal is a short, calm tween - never a spring fly-off. */
 const EXIT = { duration: 0.26, ease: [0.32, 0.72, 0, 1] as const };
 const EXIT_FADE = { duration: 0.2, ease: [0.4, 0, 1, 1] as const };
@@ -262,24 +260,16 @@ export const DraggablePlusSheet = ({
       onWheel={(e) => {
         if (e.deltaY > 0 && !expandedRef.current) snapTo("expanded");
       }}
-      className={`mobile-plus-glass-menu fixed bottom-0 left-0 right-0 z-overlay flex flex-col rounded-t-[28px] outline-none will-change-transform border-t border-foreground/10 ${
+      className={`mobile-plus-glass-menu fixed bottom-0 left-0 right-0 z-overlay flex flex-col rounded-t-[22px] outline-none will-change-transform border-t border-foreground/10 ${
         sheetKind === "integrations"
           ? "md:mx-auto md:max-w-[640px] md:rounded-t-[24px]"
           : "md:hidden"
       }`}
     >
-      <div data-sheet-grip className="shrink-0 cursor-grab touch-none pt-2.5 pb-2.5 active:cursor-grabbing">
-        <motion.div
-          animate={{ width: expanded ? 44 : 38, opacity: expanded ? 0.28 : 0.38 }}
-          transition={SOFT}
-          className="mx-auto h-[5px] rounded-full bg-foreground/90"
-        />
-      </div>
-
       <div
         ref={scrollRef}
         onScroll={onScroll}
-        className="flex-1 overscroll-contain px-3 pb-[calc(env(safe-area-inset-bottom,0px)+16px)]"
+        className="flex-1 overscroll-contain px-3 pb-[calc(env(safe-area-inset-bottom,0px)+10px)]"
         style={{
           WebkitOverflowScrolling: "touch",
           overflowY: expanded ? "auto" : "hidden",

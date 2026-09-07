@@ -255,16 +255,16 @@ const PlusMain = (p: PlusContentProps) => {
   return (
     <motion.div key="main" {...fadeProps(-8)} className="flex flex-col">
       {/* MOBILE — bottom sheet */}
-       <div dir={isArabic ? "rtl" : "ltr"} className="md:hidden flex flex-col pb-1" style={{ fontFamily: mobileFont }}>
+       <div dir={isArabic ? "rtl" : "ltr"} className="md:hidden flex flex-col" style={{ fontFamily: mobileFont }}>
         <style>{`
            .plus-action-tile { transition: transform 160ms cubic-bezier(0.32,0.72,0,1), background-color 160ms ease; }
-           .plus-action-tile:active { transform: scale(0.97); background-color: hsl(var(--muted) / 0.88); }
+           .plus-action-tile:active { transform: scale(0.975); background-color: hsl(var(--muted) / 0.72); }
            .plus-skill-row { transition: transform 160ms cubic-bezier(0.32,0.72,0,1), background-color 160ms ease; }
            .plus-skill-row:active { transform: scale(0.985); background-color: hsl(var(--muted) / 0.62); }
         `}</style>
 
-         <div className="flex flex-col gap-3 px-1">
-           <div className="grid grid-cols-2 gap-2.5">
+         <div className="flex flex-col gap-1.5 px-1">
+           <div className="grid grid-cols-2 gap-2">
            {quickTiles.map((t) => (
             <button
               key={t.id}
@@ -272,14 +272,14 @@ const PlusMain = (p: PlusContentProps) => {
               type="button"
               onClick={t.onClick}
               aria-label={t.label}
-               className="plus-action-tile flex min-h-[96px] w-full flex-col items-start justify-between rounded-2xl bg-muted/55 p-3.5 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+               className="plus-action-tile flex h-[72px] w-full items-center gap-2.5 rounded-[14px] bg-muted/45 px-3 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <span
-                 className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-background text-foreground shadow-sm"
+                 className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-background/80 text-foreground"
               >
-                 <t.Icon className="h-[19px] w-[19px]" strokeWidth={1.9} />
+                 <t.Icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
               </span>
-               <span className="text-[15px] font-semibold leading-none text-foreground">
+               <span className="text-[14px] font-medium leading-none text-foreground">
                 {t.label}
               </span>
             </button>
@@ -292,17 +292,17 @@ const PlusMain = (p: PlusContentProps) => {
                data-no-neo
                type="button"
                onClick={item.onClick}
-               className="plus-skill-row flex min-h-[72px] w-full items-center gap-3 rounded-2xl bg-transparent px-2.5 py-2 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+               className="plus-skill-row flex h-[58px] w-full items-center gap-2.5 rounded-[14px] bg-transparent px-2.5 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
              >
-               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted/65 text-foreground">
-                 <item.Icon className="h-5 w-5" strokeWidth={1.9} />
+               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[10px] bg-muted/55 text-foreground">
+                 <item.Icon className="h-[17px] w-[17px]" strokeWidth={1.8} />
                </span>
                <span className="min-w-0 flex-1">
-                 <span className="block text-[15px] font-semibold leading-5 text-foreground">{item.label}</span>
-                 <span className="mt-0.5 block truncate text-[12px] leading-4 text-muted-foreground">{item.desc}</span>
+                 <span className="block text-[14px] font-medium leading-4 text-foreground">{item.label}</span>
+                 <span className="mt-0.5 block truncate text-[11px] leading-4 text-muted-foreground">{item.desc}</span>
                </span>
                <ChevronLeft
-                 className={`h-[17px] w-[17px] shrink-0 text-muted-foreground/70 ${isArabic ? "" : "rotate-180"}`}
+                 className={`h-4 w-4 shrink-0 text-muted-foreground/55 ${isArabic ? "" : "rotate-180"}`}
                  strokeWidth={1.8}
                />
              </button>

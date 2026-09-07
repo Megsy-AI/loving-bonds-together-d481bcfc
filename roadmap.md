@@ -29,3 +29,5 @@
 - [x] إزالة مؤشر التركيز المربع من قوائم نماذج الصور والفيديو
 - [x] Redesign the mobile + menu with Files and Images tiles, then Skills only.
 - [x] Make the Skills action open the Skills page directly.
+- [x] Make the mobile + menu smaller, calmer, and better proportioned.
+- [x] Remove the top drag indicator from the mobile + menu.
