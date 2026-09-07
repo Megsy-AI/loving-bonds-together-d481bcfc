@@ -429,7 +429,7 @@ const ReferralsPage = () => {
   };
 
   const actionBar = (
-    <div className="mt-8 flex flex-col gap-2.5 pb-[max(env(safe-area-inset-bottom),14px)]">
+    <div className="mt-auto flex flex-col gap-2.5 pt-8 pb-[max(env(safe-area-inset-bottom),14px)]">
           <button
             type="button"
             onClick={shareLink}
@@ -454,7 +454,7 @@ const ReferralsPage = () => {
   );
 
   const content = (
-    <div className={`mx-auto flex w-full max-w-[620px] flex-col px-5 ${onRewards ? "pb-10" : "pb-0"} ${onRewards ? "pt-3" : "pt-[calc(max(env(safe-area-inset-top),0.25rem)+52px)]"} md:pt-7`}>
+    <div className={`mx-auto flex min-h-full w-full max-w-[620px] flex-col px-5 ${onRewards ? "pb-10" : "pb-0"} ${onRewards ? "pt-3" : "pt-[calc(max(env(safe-area-inset-top),0.25rem)+52px)]"} md:pt-7`}>
       {onRewards || isDesktop ? null : (
         <div
           className="fixed inset-x-0 z-30 flex min-h-[44px] items-center bg-background px-3 py-1.5 pt-[max(env(safe-area-inset-top),0.25rem)]"

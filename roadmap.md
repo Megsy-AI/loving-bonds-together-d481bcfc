@@ -38,3 +38,6 @@
 - [x] Place the referral actions as the final element inside the page content column.
 - [x] Raise the mobile sidebar navigation actions slightly while preserving spacing.
 - [x] Stretch the service row so Images begins at the screen edge and Research ends at the opposite edge.
+- [x] Keep service names fully visible on mobile chips.
+- [x] Make mobile service chips simple rounded rectangles.
+- [x] Push the referral Invite/Get Pro actions to the literal bottom of the screen.

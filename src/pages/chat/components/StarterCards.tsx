@@ -85,17 +85,21 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
       <div
         data-starter-chips-scroll
         dir={isAr ? "rtl" : "ltr"}
-        className="grid w-full grid-cols-5 items-center gap-1 px-0 py-1.5"
+        className="grid w-full grid-cols-5 items-stretch gap-1 px-0 py-1"
       >
         {CARDS.map((c) => (
           <button
             key={c.id}
             type="button"
             onClick={() => handleCardClick(c, onPick)}
-            className={`${chipClass} min-w-0 justify-center gap-1 px-1.5`}
+            className={
+              "group flex h-11 flex-col items-center justify-center gap-0.5 " +
+              "rounded-lg border border-border bg-card px-1 py-1 " +
+              "hover:bg-muted active:scale-[0.97] transition-[background-color,transform] duration-150"
+            }
           >
-            <c.Icon className="h-3.5 w-3.5 shrink-0 text-foreground/70" strokeWidth={2} />
-            <span className="min-w-0 truncate text-[11px] font-medium text-foreground">
+            <c.Icon className="h-3.5 w-3.5 shrink-0 text-foreground/70 transition-colors group-hover:text-foreground" strokeWidth={2} />
+            <span className="whitespace-normal text-center text-[11px] font-medium leading-tight text-foreground">
               {isAr ? c.titleAr : c.title}
             </span>
           </button>
