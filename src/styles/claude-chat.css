@@ -343,13 +343,13 @@
     background: var(--overlay-white-06) !important;
   }
 
-  /* Center greeting — Claude serif */
+  /* Center greeting — clean modern sans */
   [data-skin="claude"] h1[data-greeting] {
-    font-family: 'Instrument Serif', 'Source Serif 4', Georgia, ui-serif, serif !important;
-    font-weight: 400 !important;
-    letter-spacing: -0.015em !important;
-    font-size: 64px !important;
-    line-height: 1.05 !important;
+    font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.03em !important;
+    font-size: 40px !important;
+    line-height: 1.15 !important;
     /* Token-based so the greeting stays readable in the light theme too. */
     color: hsl(var(--foreground)) !important;
     transform: none !important;
@@ -358,9 +358,10 @@
     -webkit-font-smoothing: antialiased;
   }
   [data-skin="claude"] h1[data-greeting] span {
-    color: #E08968 !important;
-    font-style: italic;
+    color: hsl(var(--foreground)) !important;
+    font-style: normal;
   }
+
 
   /* Remove upgrade / Pro CTAs — keep the sidebar credits balance visible */
   [data-skin="claude"] aside button[title*="Upgrade" i],
