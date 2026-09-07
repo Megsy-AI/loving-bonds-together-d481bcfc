@@ -93,12 +93,13 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
             type="button"
             onClick={() => handleCardClick(c, onPick)}
             className={
-              "group flex h-9 items-center justify-center rounded-[10px] " +
+              "group flex h-9 items-center justify-center gap-1 rounded-[10px] " +
               "border border-border bg-card px-1 " +
               "hover:bg-muted active:scale-[0.97] transition-[background-color,transform] duration-150"
             }
           >
-            <span className="w-full truncate text-center text-[11.5px] font-medium leading-none text-foreground">
+            <c.Icon className="h-3.5 w-3.5 shrink-0 text-foreground/70 transition-colors group-hover:text-foreground" strokeWidth={1.75} />
+            <span className="truncate text-center text-[11px] font-medium leading-none text-foreground">
               {isAr ? c.titleAr : c.title}
             </span>
           </button>
