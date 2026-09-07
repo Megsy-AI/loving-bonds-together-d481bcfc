@@ -268,15 +268,28 @@ const ThinkingTrace = ({
           <div className="flex flex-col gap-3">
             {stepLines.length > 0 && (
               <ol className="flex flex-col gap-2">
-                {stepLines.map((line, i) => (
-                  <li
-                    key={`s-${i}-${line.slice(0, 24)}`}
-                    className="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-muted-foreground"
-                  >
-                    <span aria-hidden className="-ms-[19px] mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-primary/30 bg-background text-[10px] font-semibold text-primary">{i + 1}</span>
-                    <span className="min-w-0 break-words">{line}</span>
-                  </li>
-                ))}
+                {stepLines.map((line, i) => {
+                  const isCurrent = !!active && i === stepLines.length - 1;
+                  const showTool = isCurrent && !!running && !!tool;
+                  return (
+                    <li
+                      key={`s-${i}-${line.slice(0, 24)}`}
+                      className="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-muted-foreground"
+                    >
+                      <span
+                        aria-hidden
+                        className={`-ms-[22px] mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border bg-background ${isCurrent ? "border-primary/50 text-primary" : "border-border/70 text-muted-foreground"}`}
+                      >
+                        {showTool ? (
+                          <ToolIcon name={tool as string} size={11} />
+                        ) : (
+                          <Check className="h-3 w-3" strokeWidth={2.6} />
+                        )}
+                      </span>
+                      <span className="min-w-0 break-words">{line}</span>
+                    </li>
+                  );
+                })}
               </ol>
             )}
             {reasoningLines.length > 0 && (
