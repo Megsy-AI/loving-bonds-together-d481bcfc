@@ -85,7 +85,7 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
       <div
         data-starter-chips-scroll
         dir={isAr ? "rtl" : "ltr"}
-        className="grid w-full grid-cols-5 items-stretch gap-1 px-0 py-1"
+        className="scrollbar-hide flex w-full gap-2 overflow-x-auto px-3 py-1"
       >
         {CARDS.map((c) => (
           <button
@@ -93,13 +93,13 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
             type="button"
             onClick={() => handleCardClick(c, onPick)}
             className={
-              "group flex h-9 items-center justify-center gap-1 rounded-[10px] " +
-              "border border-border bg-card px-1 " +
+              "group flex h-10 shrink-0 items-center gap-2 rounded-xl " +
+              "border border-border bg-card px-3.5 " +
               "hover:bg-muted active:scale-[0.97] transition-[background-color,transform] duration-150"
             }
           >
-            <c.Icon className="h-3.5 w-3.5 shrink-0 text-foreground/70 transition-colors group-hover:text-foreground" strokeWidth={1.75} />
-            <span className="truncate text-center text-[11px] font-medium leading-none text-foreground">
+            <c.Icon className="h-4 w-4 shrink-0 text-foreground/70 transition-colors group-hover:text-foreground" strokeWidth={1.75} />
+            <span className="whitespace-nowrap text-[13px] font-medium text-foreground transition-colors">
               {isAr ? c.titleAr : c.title}
             </span>
           </button>
