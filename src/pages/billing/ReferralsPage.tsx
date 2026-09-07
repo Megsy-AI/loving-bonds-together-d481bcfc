@@ -411,23 +411,6 @@ const ReferralsPage = () => {
     milestone,
   };
 
-  const content = (
-    <div className={`mx-auto flex w-full max-w-[620px] flex-col px-5 ${onRewards ? "pb-10" : "pb-6"} ${onRewards ? "pt-3" : "pt-[calc(max(env(safe-area-inset-top),0.25rem)+52px)]"} md:pt-7`}>
-      {onRewards || isDesktop ? null : (
-        <div
-          className="fixed inset-x-0 z-30 flex min-h-[44px] items-center bg-background px-3 py-1.5 pt-[max(env(safe-area-inset-top),0.25rem)]"
-          style={{ top: "var(--promo-banner-h, 0px)" }}
-        >
-          <MobileSidebarButton onClick={() => setSidebarOpen(true)} />
-        </div>
-      )}
-
-      <div className="flex flex-1 flex-col">
-        <Outlet />
-      </div>
-    </div>
-  );
-
   const claimPro = async () => {
     if (!milestone.canClaim || milestone.claiming || milestone.isPartner) {
       if (milestone.remaining > 0)
@@ -446,11 +429,7 @@ const ReferralsPage = () => {
   };
 
   const actionBar = (
-    <div
-      className="bg-background pb-[max(env(safe-area-inset-bottom),14px)]"
-    >
-      <div className="mx-auto w-full max-w-[620px] px-5 pt-2">
-        <div className="flex flex-col gap-2.5">
+    <div className="mt-8 flex flex-col gap-2.5 pb-[max(env(safe-area-inset-bottom),14px)]">
           <button
             type="button"
             onClick={shareLink}
@@ -471,15 +450,26 @@ const ReferralsPage = () => {
                 ? translateExactText("Activating Pro…", lang)
                 : translateExactText("Get Pro", lang)}
           </button>
-        </div>
-      </div>
     </div>
   );
 
+  const content = (
+    <div className={`mx-auto flex w-full max-w-[620px] flex-col px-5 ${onRewards ? "pb-10" : "pb-0"} ${onRewards ? "pt-3" : "pt-[calc(max(env(safe-area-inset-top),0.25rem)+52px)]"} md:pt-7`}>
+      {onRewards || isDesktop ? null : (
+        <div
+          className="fixed inset-x-0 z-30 flex min-h-[44px] items-center bg-background px-3 py-1.5 pt-[max(env(safe-area-inset-top),0.25rem)]"
+          style={{ top: "var(--promo-banner-h, 0px)" }}
+        >
+          <MobileSidebarButton onClick={() => setSidebarOpen(true)} />
+        </div>
+      )}
 
-
-
-
+      <div className="flex flex-1 flex-col">
+        <Outlet />
+      </div>
+      {onRewards ? null : actionBar}
+    </div>
+  );
   return (
     <ReferralsCtx.Provider value={ctx}>
       {isDesktop ? (
@@ -492,7 +482,6 @@ const ReferralsPage = () => {
           </aside>
           <main className="relative min-w-0 flex-1 overflow-y-auto bg-background">
             {content}
-            {onRewards ? null : actionBar}
           </main>
         </div>
       ) : (
@@ -504,7 +493,6 @@ const ReferralsPage = () => {
         >
           <div className="min-h-[100dvh] bg-background text-foreground">
             {content}
-            {onRewards ? null : actionBar}
           </div>
         </MobilePushShell>
       )}
