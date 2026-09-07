@@ -539,10 +539,35 @@ const AppSidebar = ({
         )}
       </div>
 
+      {/* NEW CHAT — first item, same rhythm as the nav list */}
+      <div className={`shrink-0 ${isCollapsed ? "px-2 pt-3 flex justify-center" : "px-3 pt-3"}`}>
+        <button
+          onClick={handleNewChat}
+          title={isBuildMode ? "New project" : "New chat"}
+          aria-label={isBuildMode ? "New project" : "New chat"}
+          className={
+            isCollapsed
+              ? "w-10 h-10 grid place-items-center rounded-xl transition-colors hover:bg-[var(--overlay-white-08)]"
+              : "group w-full h-10 pl-3 pr-3 flex items-center gap-3 rounded-xl transition-colors hover:bg-[var(--overlay-white-06)]"
+          }
+          style={{ color: "var(--overlay-white-100)" }}
+        >
+          <span className="shrink-0">
+            <Plus size={17} strokeWidth={2.2} />
+          </span>
+          {!isCollapsed && (
+            <span className="text-[13px] tracking-tight flex-1 text-left" style={{ fontWeight: 600 }}>
+              {isBuildMode ? "New project" : "New chat"}
+            </span>
+          )}
+        </button>
+      </div>
+
       {/* NAV — clean iOS-style list: Apps always visible, rest behind More */}
       <div
-        className={`shrink-0 ${isCollapsed ? "px-2 py-3 flex flex-col items-center gap-1" : "px-3 pt-3 pb-3 flex flex-col gap-0.5"}`}
+        className={`shrink-0 ${isCollapsed ? "px-2 pt-1 pb-3 flex flex-col items-center gap-1" : "px-3 pt-1 pb-3 flex flex-col gap-0.5"}`}
       >
+
         {primaryNav.map(({ label, Icon, path, match }) => {
           const active = match(currentAppPath);
           if (isCollapsed) {
