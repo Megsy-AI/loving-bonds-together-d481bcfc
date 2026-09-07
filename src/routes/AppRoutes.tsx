@@ -123,16 +123,8 @@ export const AppRoutes = ({ currentUserId }: { currentUserId: string | null }) =
       />
       <Route path="/billing/success" element={<BillingSuccessPage />} />
       <Route path="/suc" element={<BillingSuccessPage />} />
-      <Route
-        path="/settings/referrals"
-        element={<ProtectedRoute><ReferralsPage /></ProtectedRoute>}
-      >
-        <Route index element={<ReferralsDashboardTab />} />
-      </Route>
-      <Route
-        path="/settings/referrals/resources"
-        element={<ProtectedRoute><ReferralResourcesPage /></ProtectedRoute>}
-      />
+      <Route path="/settings/referrals" element={<Navigate to="/referrals" replace />} />
+      <Route path="/settings/referrals/resources" element={<Navigate to="/referrals/resources" replace />} />
     </Route>
 
     {/* Integrations are managed from the chat composer sheet now. */}
@@ -148,7 +140,7 @@ export const AppRoutes = ({ currentUserId }: { currentUserId: string | null }) =
     <Route path="/notifications" element={<ProtectedRoute><NotificationsInboxPage /></ProtectedRoute>} />
     <Route path="/settings/security" element={<ProtectedRoute><SecuritySettingsPage /></ProtectedRoute>} />
     <Route path="/settings/language" element={<ProtectedRoute><LanguagePage /></ProtectedRoute>} />
-    <Route path="/settings/mail" element={<ProtectedRoute><MailPage /></ProtectedRoute>} />
+    <Route path="/settings/mail" element={<Navigate to="/mail" replace />} />
     <Route path="/settings/passwords" element={<ProtectedRoute><PasswordsPage /></ProtectedRoute>} />
     <Route path="/settings/mcp" element={<ProtectedRoute><McpSettingsPage /></ProtectedRoute>} />
     <Route path="/mcp-callback" element={<ProtectedRoute><McpCallbackPage /></ProtectedRoute>} />
@@ -270,11 +262,14 @@ export const AppRoutes = ({ currentUserId }: { currentUserId: string | null }) =
     <Route path="/compliance" element={<Navigate to="/legal/compliance" replace />} />
     <Route path="/billing" element={<Navigate to="/settings/billing" replace />} />
     <Route path="/k" element={<KPage />} />
-    <Route path="/billing/referrals" element={<Navigate to="/settings/referrals" replace />} />
-    <Route path="/referrals" element={<Navigate to="/settings/referrals" replace />} />
+    <Route path="/billing/referrals" element={<Navigate to="/referrals" replace />} />
+    <Route path="/referrals" element={<ProtectedRoute><ReferralsPage /></ProtectedRoute>}>
+      <Route index element={<ReferralsDashboardTab />} />
+    </Route>
+    <Route path="/referrals/resources" element={<ProtectedRoute><ReferralResourcesPage /></ProtectedRoute>} />
     {/* Sidebar destinations shared as short links must resolve, not 404. */}
-    <Route path="/earn" element={<Navigate to="/settings/referrals" replace />} />
-    <Route path="/mail" element={<Navigate to="/settings/mail" replace />} />
+    <Route path="/earn" element={<Navigate to="/referrals" replace />} />
+    <Route path="/mail" element={<ProtectedRoute><MailPage /></ProtectedRoute>} />
     <Route path="/settings/general" element={<Navigate to="/settings" replace />} />
 
     <Route path="/integrations" element={<Navigate to="/chat?integrations=1" replace />} />

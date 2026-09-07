@@ -31,8 +31,8 @@
 - [x] Make the Skills action open the Skills page directly.
 - [x] Make the mobile + menu smaller, calmer, and better proportioned.
 - [x] Remove the top drag indicator from the mobile + menu.
-- [ ] Fix the first and last service chips being clipped.
-- [ ] Make Mail and Referrals standalone pages outside the Settings layout.
-- [ ] Match the Mail and Referrals mobile sidebar button to Chat exactly in style and placement.
-- [ ] Move referral Invite/Get Pro actions into the natural end of page content with no separate background or sticky bar.
-- [ ] Raise the mobile sidebar navigation actions slightly while preserving spacing.
+- [x] Fix the first and last service chips being clipped.
+- [x] Make Mail and Referrals standalone pages outside the Settings layout.
+- [x] Match the Mail and Referrals mobile sidebar button to Chat exactly in style and placement.
+- [x] Move referral Invite/Get Pro actions into the natural end of page content with no separate background or sticky bar.
+- [x] Raise the mobile sidebar navigation actions slightly while preserving spacing.

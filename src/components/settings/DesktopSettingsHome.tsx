@@ -87,7 +87,7 @@ export function DesktopSettingsHome() {
       title: tx("Preferences"),
       rows: [
         { icon: AppearanceIcon, label: tx("Composer"), path: "/settings/customization" },
-        { icon: (p) => <Mail {...p} />, label: tx("Mail"), path: "/settings/mail" },
+        { icon: (p) => <Mail {...p} />, label: tx("Mail"), path: "/mail" },
         { icon: (p) => <KeyRound {...p} />, label: "الباسوردات", path: "/settings/passwords" },
         { icon: (p) => <Brain {...p} />, label: tx("Memory"), path: "/settings/memory" },
         { icon: IntegrationsIcon, label: tx("Integrations"), path: "/chat?integrations=1" },
